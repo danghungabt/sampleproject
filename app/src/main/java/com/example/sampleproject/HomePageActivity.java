@@ -19,7 +19,8 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Chuyển đến màn hình Sign In
-                Intent intent = new Intent(HomePageActivity.this, SignInActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, AuthActivity.class);
+                intent.putExtra("screen", "login");
                 startActivity(intent);
             }
         });
@@ -28,7 +29,8 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Chuyển đến màn hình Sign Up
-                Intent intent = new Intent(HomePageActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, AuthActivity.class);
+                intent.putExtra("screen", "register");
                 startActivity(intent);
             }
         });

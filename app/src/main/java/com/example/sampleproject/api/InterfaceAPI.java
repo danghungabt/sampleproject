@@ -1,17 +1,16 @@
-package com.example.sampleproject;
+package com.example.sampleproject.api;
 
-import com.example.sampleproject.Model.Asset;
-import com.example.sampleproject.Model.LoginResponse;
+import com.example.sampleproject.model.Asset;
+import com.example.sampleproject.model.Token;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface APIInterface {
+public interface InterfaceAPI {
 
 
     @GET("api/master/asset/{assetID}")
@@ -19,7 +18,7 @@ public interface APIInterface {
 
     @FormUrlEncoded
     @POST("auth/realms/master/protocol/openid-connect/token")
-    Call<LoginResponse> login(
+    Call<Token> getToken(
             @Field("client_id") String clientId,
             @Field("username") String username,
             @Field("password") String password,

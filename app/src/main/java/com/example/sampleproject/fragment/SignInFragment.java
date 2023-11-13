@@ -1,15 +1,22 @@
-package com.example.sampleproject;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.sampleproject.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sampleproject.MainActivity;
+import com.example.sampleproject.R;
+import com.example.sampleproject.SignInActivity;
 import com.example.sampleproject.api.ClientAPI;
+import com.example.sampleproject.api.ClientCustomAPI;
 import com.example.sampleproject.api.InterfaceAPI;
 import com.example.sampleproject.model.Token;
 
@@ -19,31 +26,32 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInFragment extends Fragment {
 
     private EditText editTextUsername, editTextPassword;
+    private Button buttonBack, buttonSignIn;
+
+    public SignInFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
-        getSupportActionBar().hide();
+    }
 
-        // Ánh xạ các trường nhập liệu
-        editTextUsername = findViewById(R.id.editTextUsernameSignIn);
-        editTextPassword = findViewById(R.id.editTextPasswordSignIn);
-
-        //initiate();
-
-        // Ánh xạ các nút
-        Button buttonBack = findViewById(R.id.buttonBackSignIn);
-        Button buttonSignIn = findViewById(R.id.buttonSignIn);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        initiate(view);
 
         // Xử lý sự kiện nút "Back"
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Đóng màn hình Sign In
+                getActivity().finish(); // Đóng màn hình Sign In
             }
         });
 
@@ -56,14 +64,28 @@ public class SignInActivity extends AppCompatActivity {
                 String username = editTextUsername.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                // In ra Logcat để kiểm tra
-                System.out.println("Username: " + username);
-                System.out.println("Password: " + password);
-
                 // Đây là nơi bạn sẽ thêm xác thực đăng nhập
                 callLoginApi(username, password);
             }
         });
+
+        return view;
+    }
+
+    private void initiate(View view){
+        editTextUsername = view.findViewById(R.id.editTextUsernameSignIn);
+        editTextPassword = view.findViewById(R.id.editTextPasswordSignIn);
+        buttonBack = view.findViewById(R.id.buttonBackSignIn);
+        buttonSignIn = view.findViewById(R.id.buttonSignIn);
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            Toast.makeText(getActivity(), "Register Success", Toast.LENGTH_SHORT).show();
+            String username = bundle.getString("username");
+            String password = bundle.getString("password");
+            editTextUsername.setText(username);
+            editTextPassword.setText(password);
+        }
     }
 
     private void callLoginApi(String username, String password) {
@@ -72,7 +94,7 @@ public class SignInActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        InterfaceAPI apiService = retrofit.create(InterfaceAPI.class);
+        InterfaceAPI apiService = ClientCustomAPI.getClient().create(InterfaceAPI.class);;
         Call<Token> call = apiService.getToken("openremote", username, password, "password");
 
         call.enqueue(new Callback<Token>() {
@@ -87,7 +109,7 @@ public class SignInActivity extends AppCompatActivity {
                     ClientAPI.setToken(accessToken);
 
                     // Chuyển đến màn hình Main
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -95,22 +117,8 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
                 t.printStackTrace();
+                Toast.makeText(getActivity(), "Login fail", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void initiate()
-    {
-        Intent login = getIntent();
-        if(login != null){
-            Toast.makeText(this, "Signup success", Toast.LENGTH_SHORT).show();
-
-            Bundle bundle = login.getBundleExtra("login");
-            String username = bundle.getString("username");
-            String password = bundle.getString("password");
-
-            editTextPassword.setText(password);
-            editTextUsername.setText(username);
-        }
     }
 }

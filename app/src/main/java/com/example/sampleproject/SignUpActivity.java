@@ -1,11 +1,12 @@
 package com.example.sampleproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Ánh xạ các trường nhập liệu
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPasswordSignIn);
+        editTextPassword = findViewById(R.id.editTextPassword1);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
 
         // Ánh xạ các nút
@@ -45,13 +46,17 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
-                // In ra Logcat để kiểm tra
-                System.out.println("Username: " + username);
-                System.out.println("Email: " + email);
-                System.out.println("Password: " + password);
-                System.out.println("Confirm Password: " + confirmPassword);
+                Intent loading = new Intent(getApplicationContext(), LoadingActivity.class);
 
-                // Đây là nơi bạn sẽ thêm xác thực và đăng ký
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                bundle.putString("email", email);
+                bundle.putString("password", password);
+                bundle.putString("confirmPassword", confirmPassword);
+
+                loading.putExtra("register", bundle);
+                startActivity(loading);
+
             }
         });
     }
