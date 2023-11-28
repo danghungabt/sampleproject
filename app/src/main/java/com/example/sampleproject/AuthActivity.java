@@ -18,6 +18,7 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         String screen = intent.getStringExtra("screen");

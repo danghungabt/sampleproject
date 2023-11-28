@@ -1,6 +1,5 @@
 package com.example.sampleproject.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.sampleproject.LoadingActivity;
 import com.example.sampleproject.R;
 
 public class SignUpFragment extends Fragment {
@@ -61,6 +60,12 @@ public class SignUpFragment extends Fragment {
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword1);
         editTextConfirmPassword = view.findViewById(R.id.editTextConfirmPassword);
+
+        Bundle bundle = getArguments();
+        if(bundle != null) {
+            String errorMessage = bundle.getString("error");
+            Toast.makeText(getActivity(), "Register error : " + errorMessage, Toast.LENGTH_SHORT).show();
+        }
 
         // Ánh xạ các nút
         buttonBack = view.findViewById(R.id.buttonBack);

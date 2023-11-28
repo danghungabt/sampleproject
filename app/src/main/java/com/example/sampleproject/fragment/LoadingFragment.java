@@ -95,6 +95,7 @@ public class LoadingFragment extends Fragment {
                         else
                         {
                             Log.d("LoadingFragment", "register error " + err);
+                            toSignUpFragment(err);
                         }
                     });
                 }
@@ -176,6 +177,23 @@ public class LoadingFragment extends Fragment {
         signInFragment.setArguments(bundle);
 
         ft.replace(R.id.container_body, signInFragment);
+
+        ft.commit();
+    }
+
+    private void toSignUpFragment(String error) {
+        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+
+        SignUpFragment loadingFragment = new SignUpFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("error", error);
+
+        loadingFragment.setArguments(bundle);
+
+        FragmentTransaction ft = fmgr.beginTransaction();
+
+        ft.replace(R.id.container_body, loadingFragment);
 
         ft.commit();
     }

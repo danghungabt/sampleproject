@@ -66,7 +66,7 @@
             android:text="Here Is An Application for UITers, provides useful information for you to have a great day at UIT!"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold|italic"
             android:layout_weight="15"/>
 

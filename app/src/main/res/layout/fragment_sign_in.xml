@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
@@ -66,68 +69,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"
+            android:layout_marginTop="20dp"
             android:textColor="#00ceb4"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textView7"/>
+            app:layout_constraintBottom_toTopOf="@id/layoutInput"/>
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Name"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:layout_constraintBottom_toTopOf="@id/editTextUsernameSignIn"/>
-
-        <EditText
-            android:id="@+id/editTextUsernameSignIn"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:padding="8dp"
-            android:ems="10"
-            android:hint="Enter Your User Name..."
-            android:textColorHint="#c7c7c7"
-            android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView7"
-            app:layout_constraintBottom_toTopOf="@id/textView9"/>
+            android:layout_marginVertical="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textView6"
+            app:layout_constraintBottom_toTopOf="@id/buttonSignIn"
+            app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/editTextUsernameSignIn"/>
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/editTextPasswordSignIn"
-            app:layout_constraintTop_toBottomOf="@id/editTextUsernameSignIn"/>
+            <EditText
+                android:id="@+id/editTextUsernameSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_background"
+                android:padding="8dp"
+                android:ems="10"
+                android:hint="Enter Your User Name..."
+                android:layout_marginVertical="20dp"
+                android:textColorHint="#c7c7c7"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView7"
+                app:layout_constraintBottom_toTopOf="@id/textView9"/>
 
-        <EditText
-            android:id="@+id/editTextPasswordSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:padding="8dp"
-            android:hint="Enter Your Password..."
-            android:textColorHint="#c7c7c7"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView9"
-            app:layout_constraintBottom_toTopOf="@id/buttonSignIn"/>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/editTextPasswordSignIn"
+                app:layout_constraintTop_toBottomOf="@id/editTextUsernameSignIn"/>
+
+            <EditText
+                android:id="@+id/editTextPasswordSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:padding="8dp"
+                android:hint="Enter Your Password..."
+                android:layout_marginVertical="20dp"
+                android:textColorHint="#c7c7c7"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView9"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <Button
             android:id="@+id/buttonSignIn"
@@ -136,6 +152,7 @@
             android:backgroundTint="@color/white"
             android:onClick="back"
             android:text="Login"
+            android:layout_marginVertical="10dp"
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -143,7 +160,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/buttonBackSignIn"
-            app:layout_constraintTop_toBottomOf="@id/editTextPasswordSignIn"/>
+            app:layout_constraintTop_toBottomOf="@id/layoutInput"/>
 
         <Button
             android:id="@+id/buttonBackSignIn"
@@ -152,6 +169,7 @@
             android:backgroundTint="@color/white"
             android:onClick="back"
             android:text="Back"
+            android:layout_marginVertical="10dp"
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -168,10 +186,13 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="#ffffff"
-            android:text="Don't Have An Account? Signup"
+            android:text="@string/don_t_have_an_account_signup"
+            android:layout_marginVertical="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonBackSignIn"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -24,6 +24,7 @@
         tools:layout_editor_absoluteX="165dp"
         tools:layout_editor_absoluteY="284dp"
         app:layout_constraintBottom_toTopOf="@id/tvHello"
-        app:layout_constraintStart_toStartOf="@id/tvHello"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
