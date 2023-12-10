@@ -1,7 +1,10 @@
 package com.example.sampleproject.api;
 
 import com.example.sampleproject.model.Asset;
+import com.example.sampleproject.model.RealmModel;
 import com.example.sampleproject.model.Token;
+import com.example.sampleproject.model.UserModel;
+import com.example.sampleproject.model.UserRealmRoleModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -24,5 +27,14 @@ public interface InterfaceAPI {
             @Field("password") String password,
             @Field("grant_type") String grantType
     );
+
+    @GET("api/master/user/{realm}/{userId}")
+    Call<UserModel> getUser(@Path("realm") String realm, @Path("userId") String userId);
+
+    @GET("api/master/user/{realm}/userRoles/{userId}")
+    Call<UserRealmRoleModel[]> getUserRealmRole(@Path("realm") String realm, @Path("userId") String userId);
+
+    @GET("api/master/realm/{realm}")
+    Call<RealmModel> getRealm(@Path("realm") String realm);
 
 }
