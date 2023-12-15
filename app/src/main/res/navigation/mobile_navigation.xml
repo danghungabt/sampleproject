@@ -10,11 +10,11 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_dashboard"-->
-<!--        android:name="com.example.airsense.view.dashboard.DashBoardContainer"-->
-<!--        android:label="@string/title_dashboard"-->
-<!--        tools:layout="@layout/fragment_dashboard_container" />-->
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.sampleproject.fragment.DashBoardContainerFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard_container" />
     <fragment
         android:id="@+id/navigation_graph"
         android:name="com.example.sampleproject.fragment.ChartFragment"
