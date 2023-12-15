@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboard_navigation"
+    app:startDestination="@+id/nav_dashboard_basic">
+<!--    <fragment-->
+<!--        android:id="@+id/nav_dashboard_basic"-->
+<!--        android:name="com.example.airsense.view.dashboard.DashboardBasicFragment"-->
+<!--        tools:layout="@layout/fragment_dashboard_basic" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_basic_to_detail"-->
+<!--            app:destination="@id/nav_dashboard_detail" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_dashboard_detail"-->
+<!--        android:name="com.example.airsense.view.dashboard.DashBoardDetailFragment"-->
+<!--        tools:layout="@layout/fragment_dashboard_detail" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_detail_to_basic"-->
+<!--            app:destination="@id/nav_dashboard_basic" />-->
+<!--    </fragment>-->
+</navigation>

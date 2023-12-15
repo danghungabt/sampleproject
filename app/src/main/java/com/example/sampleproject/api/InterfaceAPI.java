@@ -1,6 +1,6 @@
 package com.example.sampleproject.api;
 
-import com.example.sampleproject.model.Asset;
+import com.example.sampleproject.model.WeatherAssetModel;
 import com.example.sampleproject.model.RealmModel;
 import com.example.sampleproject.model.Token;
 import com.example.sampleproject.model.UserModel;
@@ -17,7 +17,7 @@ public interface InterfaceAPI {
 
 
     @GET("api/master/asset/{assetID}")
-    Call<Asset> getAsset(@Path("assetID") String assetID);//, @Header("Authorization") String auth);
+    Call<WeatherAssetModel> getAsset(@Path("assetID") String assetID);//, @Header("Authorization") String auth);
 
     @FormUrlEncoded
     @POST("auth/realms/master/protocol/openid-connect/token")

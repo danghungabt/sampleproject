@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sampleproject.ContainerActivity;
 import com.example.sampleproject.MainActivity;
 import com.example.sampleproject.R;
 import com.example.sampleproject.api.ClientAPI;
@@ -119,7 +120,7 @@ public class SignInFragment extends Fragment {
                     ClientAPI.setToken(accessToken);
 
                     // Chuyển đến màn hình Main
-                    Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ContainerActivity.class);
                     startActivity(intent);
                 }
             }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.InterfaceAPI;
-import com.example.sampleproject.model.Asset;
+import com.example.sampleproject.model.WeatherAssetModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         apiInterface =  ClientAPI.getClient().create(InterfaceAPI.class);
 
 //        Call<Asset> call = apiInterface.getAsset("6H4PeKLRMea1L0WsRXXWp9");//, "Bearer "+ token);
-        Call<Asset> call = apiInterface.getAsset( assessId);
-        call.enqueue(new Callback<Asset>() {
+        Call<WeatherAssetModel> call = apiInterface.getAsset( assessId);
+        call.enqueue(new Callback<WeatherAssetModel>() {
             @Override
-            public void onResponse(Call<Asset> call, Response<Asset> response) {
+            public void onResponse(Call<WeatherAssetModel> call, Response<WeatherAssetModel> response) {
                 Log.d("API CALL", response.code()+"");
                 //Log.d ("API CALL", response.toString());
-                Asset asset = response.body();
+                WeatherAssetModel asset = response.body();
 
                 if(asset != null) {
                     Log.d("API CALL", asset.type + "");
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Asset> call, Throwable t) {
+            public void onFailure(Call<WeatherAssetModel> call, Throwable t) {
                 Log.d("API CALL", t.getMessage().toString() +"");
 
                 //t.printStackTrace();

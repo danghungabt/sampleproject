@@ -3,4 +3,69 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="don_t_have_an_account_signup">Don\'t Have An Account? <a>Signup</a></string>
+
+    <!-- Nav bar strings -->
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_account">Account</string>
+    <string name="title_chart">Chart</string>
+
+    <!-- Login screen strings -->
+    <string name="title_login">"Welcome back"</string>
+    <string name="title_login_description">Login to your account</string>
+
+    <string name="prompt_user">User Name</string>
+    <string name="prompt_email_format">user@mail.com</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm password</string>
+    <string name="prompt_log_in">Login</string>
+
+    <string name="option_register">Don\'t have account?</string>
+
+    <string name="error_invalid_username">Not a valid username</string>
+    <string name="error_invalid_password">Password must be >5 characters</string>
+    <string name="error_login_failed">"Login failed"</string>
+
+    <!-- Register screen strings -->
+    <string name="title_register_description">Create your new account</string>
+
+    <string name="prompt_register">Register</string>
+    <string name="prompt_forgot_password">Forgot password ?</string>
+
+    <string name="option_login">Already have an account?</string>
+    <string name="option_remember">Remember Me</string>
+    <string name="option_continue_with">Or continue with</string>
+
+    <!-- Landing screen strings -->
+    <string name="title_landing">Let us take care for your health</string>
+    <string name="option_landing">Create an account</string>
+
+    <!-- Default string for null response -->
+    <string name="default_place">UIT</string>
+    <string name="default_location">Thu Duc, Ho Chi Minh City</string>
+
+    <string name="good_weather_status">GOOD</string>
+    <string name="bad_weather_status">BAD</string>
+
+    <!-- String relate to unit -->
+    <string name="rainfall">mm</string>
+    <string name="sunAltitude">°</string>
+    <string name="sunAzimuth">°</string>
+    <string name="sunIrradiance">W/m²</string>
+    <string name="sunZenith">°</string>
+    <string name="temperature">°C</string>
+    <string name="humidity">%</string>
+    <string name="windDirection">°</string>
+    <string name="windSpeed">m/s</string>
+    <string name="PM25">µg/m³</string>
+    <string name="PM10">µg/m³</string>
+    <string name="CO2">ppm</string>
+    <string name="CO2_average">ppm</string>
+    <string name="NO2">ppb</string>
+    <string name="NO">ppb</string>
+    <string name="O3">ppb</string>
+    <string name="SO2">%</string>
+    <string name="uVIndex">*</string>
+    <string name="AQI">*</string>
+    <string name="AQI_Predict">*</string>
 </resources>
