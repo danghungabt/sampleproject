@@ -1,0 +1,49 @@
+<!-- res/layout/popup_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <!-- Add your popup content here -->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:padding="16dp"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:background="@color/bad"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:gravity="left"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:textStyle="italic"
+            android:padding="16dp"
+            android:textSize="20sp"
+            android:gravity="right"
+            android:textColor="#000"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <!-- Add any other views you need -->
+
+</LinearLayout>

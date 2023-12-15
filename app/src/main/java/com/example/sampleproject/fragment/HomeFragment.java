@@ -1,9 +1,15 @@
 package com.example.sampleproject.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +36,21 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private double weatherLatitude, weatherLongitude;
     private double lightLatitude, lightLongitude;
+    private WeatherAssetModel weatherAssetModel;
+    private LightAssetModel lightAssetModel;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             List<Marker> markerList = new ArrayList<>();
             LatLng weatherMarker = new LatLng(weatherLatitude, weatherLongitude);
-            markerList.add(googleMap.addMarker(new MarkerOptions().position(weatherMarker ).title("Weather Asset").snippet("Weather Asset Snippet")));
+//            markerList.add(googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("weather")));
+            googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("Weather Asset"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(weatherMarker));
 
             LatLng lightMarker = new LatLng(lightLatitude, lightLongitude);
-            markerList.add(googleMap.addMarker(new MarkerOptions().position(lightMarker).title("Light Asset").snippet("Light Asset Snippet")));
+//            markerList.add(googleMap.addMarker(new MarkerOptions().position(lightMarker).title("light")));
+            googleMap.addMarker(new MarkerOptions().position(lightMarker).title("Light Asset"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lightMarker));
 
             // Set the bounds
@@ -60,14 +71,12 @@ public class HomeFragment extends Fragment {
             googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(@NonNull Marker marker) {
-                    for (Marker myMarker : markerList){
-                        if (marker.equals(myMarker)) { // Kiểm tra xem marker được click có phải là marker bạn đã tạo hay không
-                            // Hiển thị popup (info window)
-                            marker.showInfoWindow();
-                            // Trả về true để ngăn không cho hệ thống xử lý sự kiện mặc định của Marker
-                            return true;
-                        }
+                    if(marker.getTitle().equals("Weather Asset")){
+                        showPopupWeatherAsset(weatherAssetModel);
+                    }else {
+                        showPopupLightAsset(lightAssetModel);
                     }
+
                     return false;
                 }
             });
@@ -100,9 +109,10 @@ public class HomeFragment extends Fragment {
         repository.getAssetById("5zI6XqkQVSfdgOrZ1MyWEf").observe(getViewLifecycleOwner(), new Observer<WeatherAssetModel>() {
             @Override
             public void onChanged(WeatherAssetModel weatherAsset) {
-                if(weatherAsset.attributes.location.value != null) {
+                if (weatherAsset.attributes.location.value != null) {
                     weatherLongitude = weatherAsset.attributes.location.value.coordinates.get(0);
                     weatherLatitude = weatherAsset.attributes.location.value.coordinates.get(1);
+                    weatherAssetModel = weatherAsset;
                 }
             }
         });
@@ -110,11 +120,70 @@ public class HomeFragment extends Fragment {
         repository.getLightAssetById("6iWtSbgqMQsVq8RPkJJ9vo").observe(getViewLifecycleOwner(), new Observer<LightAssetModel>() {
             @Override
             public void onChanged(LightAssetModel lightAsset) {
-                if(lightAsset.attributes.location.value != null) {
+                if (lightAsset.attributes.location.value != null) {
                     lightLongitude = lightAsset.attributes.location.value.coordinates.get(0);
                     lightLatitude = lightAsset.attributes.location.value.coordinates.get(1);
+                    lightAssetModel = lightAsset;
                 }
             }
         });
+    }
+
+    private void showPopupLightAsset(LightAssetModel lightAssetModel) {
+        TextView tvName, tvType;
+        // Inflate the popup layout
+        View popupView = getLayoutInflater().inflate(R.layout.popup_light_asset, null);
+
+        tvName = popupView.findViewById(R.id.tvName);
+        tvType = popupView.findViewById(R.id.tvType);
+
+        tvName.setText(lightAssetModel.name);
+        tvType.setText(lightAssetModel.type);
+
+        // Dismiss the popup when clicked outside
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+//                popupWindow.dismiss();
+                return true;
+            }
+        });
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+        bottomSheetDialog.setContentView(popupView);
+        bottomSheetDialog.show();
+    }
+
+    private void showPopupWeatherAsset(WeatherAssetModel weatherAssetModel) {
+        TextView tvHumidity, tvRainfall, tvTemperature, tvWindDirection, tvWindSpeed, tvName;
+        // Inflate the popup layout
+        View popupView = getLayoutInflater().inflate(R.layout.popup_weather_asset, null);
+
+        tvHumidity = popupView.findViewById(R.id.tvHumidity);
+        tvRainfall = popupView.findViewById(R.id.tvRainfall);
+        tvTemperature = popupView.findViewById(R.id.tvTemperature);
+        tvWindDirection = popupView.findViewById(R.id.tvWindDirection);
+        tvWindSpeed = popupView.findViewById(R.id.tvWindSpeed);
+        tvName = popupView.findViewById(R.id.tvName);
+
+        tvHumidity.setText(weatherAssetModel.attributes.humidity.value.toString());
+        tvRainfall.setText(weatherAssetModel.attributes.rainfall.value.toString());
+        tvTemperature.setText(weatherAssetModel.attributes.temperature.value.toString());
+        tvWindDirection.setText(weatherAssetModel.attributes.windDirection.value.toString());
+        tvWindSpeed.setText(weatherAssetModel.attributes.windSpeed.value.toString());
+        tvName.setText(weatherAssetModel.name);
+
+        // Dismiss the popup when clicked outside
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+//                popupWindow2.dismiss();
+                return true;
+            }
+        });
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+        bottomSheetDialog.setContentView(popupView);
+        bottomSheetDialog.show();
     }
 }
