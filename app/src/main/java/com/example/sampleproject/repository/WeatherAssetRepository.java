@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.sampleproject.api.ApiClient;
 import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.WeatherAssetService;
 import com.example.sampleproject.model.LightAssetModel;
@@ -21,8 +22,8 @@ import retrofit2.Response;
 public class WeatherAssetRepository {
     private WeatherAssetService assetService;
     public WeatherAssetRepository(Context context) {
-        assetService = ClientAPI.getClient().create(WeatherAssetService.class);
-//        assetService = ApiClient.getClient(context).create(WeatherAssetService.class);
+//        assetService = ClientAPI.getClient().create(WeatherAssetService.class);
+        assetService = ApiClient.getClient(context).create(WeatherAssetService.class);
     }
 
     //List of Weather Asset

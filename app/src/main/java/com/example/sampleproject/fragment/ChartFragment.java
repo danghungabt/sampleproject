@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.example.sampleproject.R;
 import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.ExportDataApi;
+import com.example.sampleproject.api.TokenManager;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -41,7 +42,7 @@ import java.util.TimeZone;
 import java.util.TreeSet;
 
 public class ChartFragment extends Fragment {
-//    private TokenManager tokenManager = TokenManager.getInstance(getContext());
+    private TokenManager tokenManager = TokenManager.getInstance(getContext());
     View view;
     public static long last_time;
     public static int axis_x_format;
@@ -206,8 +207,8 @@ public class ChartFragment extends Fragment {
                             try {
 
                                 Log.d("interrupt","false");
-//                                ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, tokenManager.getAccessToken());
-                                ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, ClientAPI.getToken());
+                                ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, tokenManager.getAccessToken());
+//                                ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, ClientAPI.getToken());
                                 data = export_data.GetData();
                                 int stop = 0;
                                 SortedSet<Date> keys = new TreeSet<>(data.keySet());

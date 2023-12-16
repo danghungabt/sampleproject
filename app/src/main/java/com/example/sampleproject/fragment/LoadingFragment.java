@@ -1,6 +1,5 @@
 package com.example.sampleproject.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,18 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.example.sampleproject.HomePageActivity;
-import com.example.sampleproject.MainActivity;
 import com.example.sampleproject.R;
-import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.ClientCustomAPI;
 import com.example.sampleproject.api.InterfaceAPI;
-import com.example.sampleproject.model.Token;
+import com.example.sampleproject.model.TokenModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -149,10 +144,10 @@ public class LoadingFragment extends Fragment {
 
     private void accessHomeScreen()
     {
-        Call<Token> call = apiInterface.getToken("openremote", username, password, "password");
-        call.enqueue(new Callback<Token>() {
+        Call<TokenModel> call = apiInterface.getToken("openremote", username, password, "password");
+        call.enqueue(new Callback<TokenModel>() {
             @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
                 if (response.isSuccessful())
                 {
                     Log.d("API CALL", response.body().getAccessToken()+"");
@@ -161,7 +156,7 @@ public class LoadingFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Token> call, Throwable t) {
+            public void onFailure(Call<TokenModel> call, Throwable t) {
                 Log.d("Register api error: ", t.toString());
             }
         });

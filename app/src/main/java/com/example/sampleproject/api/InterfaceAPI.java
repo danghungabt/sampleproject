@@ -2,7 +2,7 @@ package com.example.sampleproject.api;
 
 import com.example.sampleproject.model.WeatherAssetModel;
 import com.example.sampleproject.model.RealmModel;
-import com.example.sampleproject.model.Token;
+import com.example.sampleproject.model.TokenModel;
 import com.example.sampleproject.model.UserModel;
 import com.example.sampleproject.model.UserRealmRoleModel;
 
@@ -21,7 +21,7 @@ public interface InterfaceAPI {
 
     @FormUrlEncoded
     @POST("auth/realms/master/protocol/openid-connect/token")
-    Call<Token> getToken(
+    Call<TokenModel> getToken(
             @Field("client_id") String clientId,
             @Field("username") String username,
             @Field("password") String password,

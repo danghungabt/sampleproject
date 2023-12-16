@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sampleproject.ContainerActivity;
-import com.example.sampleproject.MainActivity;
 import com.example.sampleproject.R;
 import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.ClientCustomAPI;
 import com.example.sampleproject.api.InterfaceAPI;
-import com.example.sampleproject.model.Token;
+import com.example.sampleproject.api.TokenManager;
+import com.example.sampleproject.model.TokenModel;
+import com.example.sampleproject.repository.LoginRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +37,9 @@ public class SignInFragment extends Fragment {
     private EditText editTextUsername, editTextPassword;
     private Button buttonBack, buttonSignIn;
     private TextView btnSignUp;
+    private LoginRepository loginRepository;
+    private TokenManager tokenManager;
+    private Intent navToMain;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -70,6 +76,15 @@ public class SignInFragment extends Fragment {
 
                 // Đây là nơi bạn sẽ thêm xác thực đăng nhập
                 callLoginApi(username, password);
+
+//                loginRepository.login(username, password).observe(getViewLifecycleOwner(), new Observer<TokenModel>() {
+//                    @Override
+//                    public void onChanged(TokenModel response) {
+//                        if (response != null) {
+//
+//                        }
+//                    }
+//                });
             }
         });
 
@@ -82,6 +97,10 @@ public class SignInFragment extends Fragment {
         buttonBack = view.findViewById(R.id.buttonBackSignIn);
         buttonSignIn = view.findViewById(R.id.buttonSignIn);
         btnSignUp = view.findViewById(R.id.textView10);
+
+        tokenManager = TokenManager.getInstance(getContext());
+        navToMain = new Intent(getActivity(), ContainerActivity.class);
+        loginRepository = new LoginRepository(getContext());
 
         Bundle bundle = getArguments();
         if(bundle != null) {
@@ -106,19 +125,25 @@ public class SignInFragment extends Fragment {
                 .build();
 
         InterfaceAPI apiService = ClientCustomAPI.getClient().create(InterfaceAPI.class);;
-        Call<Token> call = apiService.getToken("openremote", username, password, "password");
+        Call<TokenModel> call = apiService.getToken("openremote", username, password, "password");
 
-        call.enqueue(new Callback<Token>() {
+        call.enqueue(new Callback<TokenModel>() {
             @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
                 if (response.isSuccessful()) {
-                    Token loginResponse = response.body();
+                    TokenModel loginResponse = response.body();
                     String accessToken = loginResponse.getAccessToken();
 
                     // Sử dụng accessToken ở đây
                     // Ví dụ: Lưu vào SharedPreferences, gửi đến server khác, vv.
                     ClientAPI.setToken(accessToken);
 
+                    tokenManager.login(
+                            loginResponse.getAccessToken(),
+                            loginResponse.getRefreshToken(),
+                            loginResponse.getExpire(),
+                            loginResponse.getRefreshExpire()
+                    );
                     // Chuyển đến màn hình Main
                     Intent intent = new Intent(getActivity().getApplicationContext(), ContainerActivity.class);
                     startActivity(intent);
@@ -126,7 +151,7 @@ public class SignInFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Token> call, Throwable t) {
+            public void onFailure(Call<TokenModel> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getActivity(), "Login fail", Toast.LENGTH_SHORT).show();
                 editTextPassword.setText("");
