@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sampleproject.api.ApiClient;
-import com.example.sampleproject.api.ClientAPI;
 import com.example.sampleproject.api.WeatherAssetService;
 import com.example.sampleproject.model.LightAssetModel;
 import com.example.sampleproject.model.WeatherAssetModel;
@@ -29,6 +28,7 @@ public class WeatherAssetRepository {
     //List of Weather Asset
     String[] types = {"WeatherAsset"};
     WeatherAssetRequestBodyModel requestBody = new WeatherAssetRequestBodyModel(types);
+
     public LiveData<List<WeatherAssetModel>> getAsset() {
         MutableLiveData<List<WeatherAssetModel>> data = new MutableLiveData<>();
         Call<List<WeatherAssetModel>> call = assetService.getAsset(requestBody);

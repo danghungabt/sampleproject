@@ -47,10 +47,10 @@ public class TokenManager {
         this.expiresIn = System.currentTimeMillis() / 1000 + expiresIn;
         this.refreshExpiresIn = refreshExpiresIn;
 
-        editor.putString("access_token", accessToken);
-        editor.putString("refresh_token", refreshToken);
-        editor.putLong("expires_in", expiresIn);
-        editor.putLong("refresh_expires_in", refreshExpiresIn);
+        editor.putString("access_token", this.accessToken);
+        editor.putString("refresh_token", this.refreshToken);
+        editor.putLong("expires_in", this.expiresIn);
+        editor.putLong("refresh_expires_in", this.refreshExpiresIn);
         editor.apply();
     }
 

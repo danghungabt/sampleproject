@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sampleproject.R;
 import com.example.sampleproject.model.WeatherAssetModel;
+import com.example.sampleproject.utils.ConvertTimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
         WeatherAssetModel.Attributes.Pollutant pollutant = pollutants.get(position);
         holder.name.setText(pollutant.name);
         holder.value.setText(pollutant.value.toString());
+        holder.tvTime.setText(ConvertTimeUtils.convertTimestampToDate(pollutant.timestamp));
         int attributeResourceId = context.getResources()
                 .getIdentifier(pollutant.name, "string", context.getPackageName());
         if (attributeResourceId != 0) {
@@ -61,7 +63,7 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
     public class DetailPollutantViewHolder extends RecyclerView.ViewHolder {
         private CardView parent;
        // private LinearLayout statusContainer;
-        private TextView name, value, unit;
+        private TextView name, value, unit, tvTime;
         public DetailPollutantViewHolder(@NonNull View itemView) {
             super(itemView);
             parent = itemView.findViewById(R.id.detail_pollutant_card);
@@ -69,6 +71,7 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
             name = itemView.findViewById(R.id.txt_pollutant_name) ;
             value = itemView.findViewById(R.id.txt_pollutant_value);
             unit = itemView.findViewById(R.id.pollutant_unit);
+            tvTime = itemView.findViewById(R.id.tv_time);
         }
     }
 }

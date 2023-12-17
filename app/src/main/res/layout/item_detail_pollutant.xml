@@ -1,34 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
-    android:layout_height="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-
+    android:layout_marginTop="10dp"
     android:id="@+id/detail_pollutant_card"
     app:cardCornerRadius="10dp"
     android:background="@drawable/custom_flat_shape">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="3dp">
-        <!-- Status container -->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/container_pollutant_status"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_width="15dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:background="@color/bad"/>-->
-<!--        android:layout_toRightOf="@+id/container_pollutant_status"-->
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:padding="2dp">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
                 <TextView
                     android:id="@+id/txt_pollutant_name"
                     android:layout_width="wrap_content"
@@ -37,35 +20,55 @@
                     android:text="PM2.5"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="15dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal">
+                    android:textSize="15dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"/>
                     <TextView
                         android:id="@+id/txt_pollutant_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2.4"
-                        android:textSize="20dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" *"
-                        android:textSize="25dp" />
-                </LinearLayout>
-        </RelativeLayout>
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_below="@id/txt_pollutant_name"/>
+
 
         <TextView
             android:id="@+id/pollutant_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="\u00B5g/m\u00B3"
+            android:layout_marginLeft="2dp"
+            android:text="(\u00B5g/m\u00B3)"
             android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textStyle="italic"
+            android:layout_toRightOf="@id/txt_pollutant_value"
+            android:layout_below="@id/txt_pollutant_name"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/txt_pollutant_value"
+            android:padding="2dp"
+            android:layout_alignParentLeft="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="At: "
+                android:textColor="@color/faded_text"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/faded_text"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

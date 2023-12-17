@@ -5,14 +5,19 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/nav_ic_explore"
         android:title="@string/title_home" />
-    <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/nav_ic_dashboard"
-        android:title="@string/title_dashboard" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:icon="@drawable/nav_ic_dashboard"-->
+<!--        android:title="@string/title_dashboard" />-->
     <item
         android:id="@+id/navigation_graph"
         android:icon="@drawable/nav_ic_chart"
         android:title="Chart" />
+    <item
+        android:id="@+id/navigation_feature"
+        android:icon="@drawable/nav_ic_dashboard"
+        android:title="Feature" />
+
 <!--    <item-->
 <!--        android:id="@+id/navigation_account"-->
 <!--        android:icon="@drawable/nav_ic_account"-->

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sampleproject.R;
 import com.example.sampleproject.model.WeatherAssetModel;
+import com.example.sampleproject.utils.ConvertTimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class DashBoardWeatherAdapter extends RecyclerView.Adapter<DashBoardWeath
         WeatherAssetModel.Attributes.Measurement weatherAttribute = weatherAttributes.get(position);
         holder.weatherName.setText(weatherAttribute.name);
         holder.weatherValue.setText(weatherAttribute.value.toString());
+        holder.tvTime.setText(ConvertTimeUtils.convertTimestampToDate(weatherAttribute.timestamp));
 
         int attributeResourceId = context.getResources()
                 .getIdentifier(weatherAttribute.name, "string", context.getPackageName());
@@ -70,7 +72,7 @@ public class DashBoardWeatherAdapter extends RecyclerView.Adapter<DashBoardWeath
         private CardView parent;
         //private LinearLayout statusContainer;
         private ImageView weatherImage;
-        private TextView weatherName, weatherValue, weatherUnit;
+        private TextView weatherName, weatherValue, weatherUnit, tvTime;
         public DetailWeatherViewHolder(@NonNull View itemView) {
             super(itemView);
             parent = itemView.findViewById(R.id.detail_weather_card);
@@ -79,6 +81,7 @@ public class DashBoardWeatherAdapter extends RecyclerView.Adapter<DashBoardWeath
             weatherName = itemView.findViewById(R.id.txt_weather_name) ;
             weatherValue = itemView.findViewById(R.id.txt_weather_value);
             weatherUnit = itemView.findViewById(R.id.txt_weather_unit);
+            tvTime = itemView.findViewById(R.id.tv_time);
         }
     }
 }

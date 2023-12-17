@@ -19,10 +19,12 @@ public class HomePageActivity extends AppCompatActivity {
 
         sharedPreferences = LocalStorage.getInstance(this);
         String accessToken = sharedPreferences.getString("access_token", null);
+        long expiresIn = sharedPreferences.getLong("expires_in", 0);
 
         Intent intent = new Intent(HomePageActivity.this,ContainerActivity.class);
-        if (accessToken != null) {
-            startActivity(intent);
+
+        if (accessToken != null && expiresIn > (System.currentTimeMillis() / 1000)) {
+                startActivity(intent);
         }
 
         // Ánh xạ các nút và gắn lắng nghe sự kiện
