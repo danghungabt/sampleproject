@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +34,8 @@ public class FeatureFragment extends Fragment {
     private Spinner spinner;
     private RecyclerView weatherRecView, pollutantRecView;
     private  View view;
+    private NestedScrollView svContent;
+    private ProgressBar progressBar;
 
     private WeatherAssetRepository weatherAssetRepository;
     private DashboardBasicViewModel dashboardViewModel;
@@ -82,6 +86,8 @@ public class FeatureFragment extends Fragment {
         spinner = view.findViewById(R.id.spinner);
         weatherRecView = view.findViewById(R.id.dashboard_detail_weather_rec_view);
         pollutantRecView = view.findViewById(R.id.dashboard_detail_pollutant_rec_view);
+        svContent = view.findViewById(R.id.svContent);
+        progressBar = view.findViewById(R.id.loadingProgressBar);
 
         weatherAssetRepository = new  WeatherAssetRepository(getContext());
         dashboardViewModel = new DashboardBasicViewModel(weatherAssetRepository);
@@ -89,6 +95,7 @@ public class FeatureFragment extends Fragment {
             @Override
             public void onChanged(List<WeatherAssetModel> weatherAssets) {
                 if(weatherAssets != null) {
+
                     customSpinnerAdapter = new CustomSpinnerAdapter(getContext(), R.layout.item_spinner_custom, weatherAssets);
                     spinner.setAdapter(customSpinnerAdapter);
                     weatherAssetModelList = weatherAssets;
@@ -100,6 +107,9 @@ public class FeatureFragment extends Fragment {
                     pollutantRecViewAdapter.notifyDataSetChanged();
 
                     setupWeatherRecyclerView();
+
+                    progressBar.setVisibility(View.GONE);
+                    svContent.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -1,11 +1,14 @@
 package com.example.sampleproject.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,8 +17,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,10 +38,12 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TimeZone;
@@ -56,7 +64,11 @@ public class ChartFragment extends Fragment {
     Handler ui_handler = new Handler();
     Spinner attribute_spinner, timeframe_spinner;
     Thread background_Thread;
-    private ConstraintLayout backgroundLayout;
+    private RelativeLayout backgroundLayout;
+
+    private String timeFrame = "";
+    private TextView tvInputDateTime;
+    private Calendar calendarEnding;
 
 
     String getQueryAttribute() {
@@ -82,6 +94,7 @@ public class ChartFragment extends Fragment {
     public View getView() {
         return graph;
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +105,21 @@ public class ChartFragment extends Fragment {
         backgroundLayout = view.findViewById(R.id.background4);
         timeframe_spinner = view.findViewById(R.id.spinner_timeframe);
 
+        calendarEnding = Calendar.getInstance(TimeZone.getTimeZone("GMT+7"));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String dateTime = simpleDateFormat.format(calendarEnding.getTime());
+        tvInputDateTime = view.findViewById(R.id.tvInputDateTime);
+        tvInputDateTime.setText(dateTime);
+
+
+        tvInputDateTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimePicker();
+            }
+        });
+
+
         timeframe_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -99,12 +127,15 @@ public class ChartFragment extends Fragment {
                 if (item.contains("day")) {
                     ChartFragment.last_time = Long.parseLong(item.split(" ")[0]) * 86400 * 1000;
                     ChartFragment.axis_x_format = 0;
+                    timeFrame = "day";
                 } else if (item.contains("week")) {
                     ChartFragment.last_time = Long.parseLong(item.split(" ")[0]) * 86400 * 7 * 1000;
                     ChartFragment.axis_x_format = 1;
+                    timeFrame = "week";
                 } else if (item.contains("month")) {
                     ChartFragment.last_time = Long.parseLong(item.split(" ")[0]) * 86400 * 30 * 1000;
                     ChartFragment.axis_x_format = 2;
+                    timeFrame = "month";
                 }
             }
 
@@ -130,17 +161,17 @@ public class ChartFragment extends Fragment {
 
 
         paint = new Paint();
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.GREEN);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
 
 
         graph = view.findViewById(R.id.idGraphView);
-        graph.setTitleColor(R.color.green_primary);
+        graph.setTitleColor(R.color.black);
         graph.setCursorMode(true);
-        graph.setTitleColor(R.color.green_primary);
-        graph.setTitleTextSize(30);
+//        graph.setTitleColor(R.color.green_primary);
+        graph.setTitleTextSize(40);
 
         graph.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -163,26 +194,29 @@ public class ChartFragment extends Fragment {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    Calendar calendar = Calendar.getInstance();
+                    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7"));
                     calendar.setTimeInMillis((long) value);
                     if (ChartFragment.axis_x_format == 0)
                         return String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)).concat(":00");
                     else
-                        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)).concat("/" + calendar.get(Calendar.MONTH));
+                        return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)).concat("/" + (calendar.get(Calendar.MONTH) + 1));
                 }
                 DecimalFormat df = new DecimalFormat("0.00");
                 if (attribute_id == 0)
-                    return df.format(value).concat(" ℃");
+//                    return df.format(value).concat(" ℃");
+                    return df.format(value);
                 else if (attribute_id == 1) {
-                    df = new DecimalFormat("0");
-
-                    return df.format(value).concat(" %");
+                    df = new DecimalFormat("0.00");
+//                    return df.format(value).concat(" %");
+                    return df.format(value);
                 } else if (attribute_id == 2) {
                     df = new DecimalFormat("0.00");
-                    return df.format(value).concat(" mm");
+//                    return df.format(value).concat(" mm");
+                    return df.format(value);
                 } else {
                     df = new DecimalFormat("0.00");
-                    return df.format(value).concat(" km/h");
+//                    return df.format(value).concat(" km/h");
+                    return df.format(value);
                 }
             }
         };
@@ -192,12 +226,14 @@ public class ChartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("Show", String.valueOf(ChartFragment.last_time));
+                graph.setVisibility(View.VISIBLE);
                 if (ChartFragment.mode == 0) {
                     Map<String, String> query = new HashMap<>();
                     query.put("attributeRefs", getQueryAttribute());
-                    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7"));
+                    Calendar calendar = calendarEnding;
+//                    calendarEnding.set(Calendar.MONTH, calendarEnding.MONTH + 1);
 
-                    long to_timestamp = calendar.getTimeInMillis();
+                    long to_timestamp = calendarEnding.getTimeInMillis();
                     long from_timestamp = to_timestamp - ChartFragment.last_time;
                     query.put("fromTimestamp", String.valueOf(from_timestamp));
                     query.put("toTimestamp", String.valueOf(to_timestamp));
@@ -205,7 +241,6 @@ public class ChartFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-
                                 Log.d("interrupt","false");
                                 ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, tokenManager.getAccessToken());
 //                                ExportDataApi export_data = new ExportDataApi("https://uiot.ixxc.dev/api/master/asset/datapoint/export", "GET", query, ClientAPI.getToken());
@@ -213,15 +248,19 @@ public class ChartFragment extends Fragment {
                                 int stop = 0;
                                 SortedSet<Date> keys = new TreeSet<>(data.keySet());
                                 DataPoint[] datapoints_temp = new DataPoint[keys.size()];
+
                                 if (data.isEmpty()) {
                                     ui_handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             Toast.makeText(getContext(), "Empty data", Toast.LENGTH_SHORT).show();
+                                            series = new LineGraphSeries<>();
+                                            graph.addSeries(series);
                                         }
                                     });
                                     return;
                                 }
+
                                 int count = 0;
                                 for (Date key : keys) {
                                     datapoints_temp[count] = new DataPoint(key, data.get(key));
@@ -236,7 +275,9 @@ public class ChartFragment extends Fragment {
                                     graph.setTitle("Rainfall");
                                 else if (attribute_id == 3)
                                     graph.setTitle("Wind speed");
+
                                 series = new LineGraphSeries<>(datapoints_temp);
+
                                 ui_handler.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -253,14 +294,18 @@ public class ChartFragment extends Fragment {
                                             graph.getViewport().setMaxY(100);
                                         } else if (attribute_id == 2) {
                                             graph.getViewport().setMinY(0);
-                                            graph.getViewport().setMaxY(10);
+                                            graph.getViewport().setMaxY(5);
                                         } else if (attribute_id == 3) {
                                             graph.getViewport().setMinY(0);
-                                            graph.getViewport().setMaxY(7);
+                                            if(timeFrame.equals("day")){
+                                                graph.getViewport().setMaxY(6);
+                                            }else {
+                                                graph.getViewport().setMaxY(7);
+                                            }
                                         }
                                         graph.getViewport().setXAxisBoundsManual(true);
                                         graph.addSeries(series);
-                                        graph.setTitleTextSize(50);
+                                        graph.setTitleTextSize(40);
 
                                         graph.getGridLabelRenderer().setLabelFormatter(custom_formatter);
 
@@ -275,12 +320,8 @@ public class ChartFragment extends Fragment {
                                             graph.setCursorMode(false);
                                             graph.getViewport().setScrollable(true);
                                         }
-
-
                                     }
                                 });
-
-
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -289,8 +330,6 @@ public class ChartFragment extends Fragment {
                         }
                     });
                     data_thread.start();
-
-
                 }
 
 
@@ -306,7 +345,7 @@ public class ChartFragment extends Fragment {
                 // Check if the parent view is not null and is an instance of TextView
                 if (parent.getChildAt(0) instanceof TextView) {
                     // Set the text size
-                    ((TextView) parent.getChildAt(0)).setTextSize(20);
+//                    ((TextView) parent.getChildAt(0)).setTextSize(20);
                 }
                 attribute_id = position;
             }
@@ -336,11 +375,50 @@ public class ChartFragment extends Fragment {
         if(hourOfDay >= 5 && hourOfDay <= 17)
         {
         } else {
-            backgroundLayout.setBackgroundResource(R.drawable.custom_button_rounded);
+//            backgroundLayout.setBackgroundResource(R.drawable.custom_button_rounded);
             show_btn.setBackgroundResource(R.drawable.custom_button_rounded);
             attribute_spinner.setBackgroundResource(R.drawable.custom_spinner);
             timeframe_spinner.setBackgroundResource(R.drawable.custom_spinner);
         }
         return view;
+    }
+
+    private void showDateTimePicker() {
+        int year = calendarEnding.get(Calendar.YEAR);
+        int month = calendarEnding.get(Calendar.MONTH);
+        int day = calendarEnding.get(Calendar.DAY_OF_MONTH);
+
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendarEnding.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendarEnding.set(Calendar.MINUTE, minute);
+
+                // Định dạng ngày và giờ và hiển thị trong textView
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                String dateTime = simpleDateFormat.format(calendarEnding.getTime());
+                tvInputDateTime.setText(dateTime);
+            }
+        };
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendarEnding.set(Calendar.YEAR, year);
+                calendarEnding.set(Calendar.MONTH, month);
+                calendarEnding.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                int hour = calendarEnding.get(Calendar.HOUR_OF_DAY);
+                int minute = calendarEnding.get(Calendar.MINUTE);
+
+                // Tạo TimePickerDialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), timeSetListener, hour, minute, DateFormat.is24HourFormat(getContext()));
+                timePickerDialog.show();
+            }
+        };
+
+        // Tạo DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), dateSetListener , year, month, day);
+        datePickerDialog.show();
     }
 }
