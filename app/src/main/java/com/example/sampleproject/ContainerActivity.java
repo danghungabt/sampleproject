@@ -18,12 +18,9 @@ public class ContainerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home,R.id.navigation_dashboard,R.id.navigation_graph,R.id.navigation_account)
-//                .build();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,R.id.navigation_graph, R.id.navigation_feature)
                 .build();

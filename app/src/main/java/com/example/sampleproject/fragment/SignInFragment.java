@@ -2,13 +2,6 @@ package com.example.sampleproject.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.sampleproject.ContainerActivity;
 import com.example.sampleproject.R;
 import com.example.sampleproject.api.ClientAPI;
@@ -24,22 +21,18 @@ import com.example.sampleproject.api.ClientCustomAPI;
 import com.example.sampleproject.api.InterfaceAPI;
 import com.example.sampleproject.api.TokenManager;
 import com.example.sampleproject.model.TokenModel;
-import com.example.sampleproject.repository.LoginRepository;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInFragment extends Fragment {
 
     private EditText editTextUsername, editTextPassword;
     private Button buttonBack, buttonSignIn;
-    private TextView btnSignUp;
-    private LoginRepository loginRepository;
     private TokenManager tokenManager;
-    private Intent navToMain;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -58,34 +51,19 @@ public class SignInFragment extends Fragment {
         initiate(view);
 
         // Xử lý sự kiện nút "Back"
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish(); // Đóng màn hình Sign In
-            }
+        buttonBack.setOnClickListener(v -> {
+            Objects.requireNonNull(getActivity()).finish(); // Đóng màn hình Sign In
         });
 
         // Xử lý sự kiện nút "Sign In"
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Thực hiện xác thực đăng nhập tại đây
-                // Để đơn giản, bạn có thể in ra các giá trị nhập liệu
-                String username = editTextUsername.getText().toString();
-                String password = editTextPassword.getText().toString();
+        buttonSignIn.setOnClickListener(v -> {
+            // Thực hiện xác thực đăng nhập tại đây
+            // Để đơn giản, bạn có thể in ra các giá trị nhập liệu
+            String username = editTextUsername.getText().toString();
+            String password = editTextPassword.getText().toString();
 
-                // Đây là nơi bạn sẽ thêm xác thực đăng nhập
-                callLoginApi(username, password);
-
-//                loginRepository.login(username, password).observe(getViewLifecycleOwner(), new Observer<TokenModel>() {
-//                    @Override
-//                    public void onChanged(TokenModel response) {
-//                        if (response != null) {
-//
-//                        }
-//                    }
-//                });
-            }
+            // Đây là nơi bạn sẽ thêm xác thực đăng nhập
+            callLoginApi(username, password);
         });
 
         return view;
@@ -96,11 +74,9 @@ public class SignInFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPasswordSignIn);
         buttonBack = view.findViewById(R.id.buttonBackSignIn);
         buttonSignIn = view.findViewById(R.id.buttonSignIn);
-        btnSignUp = view.findViewById(R.id.textView10);
+        TextView btnSignUp = view.findViewById(R.id.textView10);
 
         tokenManager = TokenManager.getInstance(getContext());
-        navToMain = new Intent(getActivity(), ContainerActivity.class);
-        loginRepository = new LoginRepository(getContext());
 
         Bundle bundle = getArguments();
         if(bundle != null) {
@@ -110,21 +86,11 @@ public class SignInFragment extends Fragment {
             editTextUsername.setText(username);
             editTextPassword.setText(password);
         }
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toSignUpFragment();
-            }
-        });
+        btnSignUp.setOnClickListener(view1 -> toSignUpFragment());
     }
 
     private void callLoginApi(String username, String password) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://uiot.ixxc.dev/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        InterfaceAPI apiService = ClientCustomAPI.getClient().create(InterfaceAPI.class);;
+        InterfaceAPI apiService = ClientCustomAPI.getClient().create(InterfaceAPI.class);
         Call<TokenModel> call = apiService.getToken("openremote", username, password, "password");
 
         call.enqueue(new Callback<TokenModel>() {
@@ -145,7 +111,7 @@ public class SignInFragment extends Fragment {
                             loginResponse.getRefreshExpire()
                     );
                     // Chuyển đến màn hình Main
-                    Intent intent = new Intent(getActivity().getApplicationContext(), ContainerActivity.class);
+                    Intent intent = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext(), ContainerActivity.class);
                     startActivity(intent);
                 }
             }
@@ -161,7 +127,7 @@ public class SignInFragment extends Fragment {
     }
 
     private void toSignUpFragment() {
-        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+        FragmentManager fmgr = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
 
         SignUpFragment loadingFragment = new SignUpFragment();
 

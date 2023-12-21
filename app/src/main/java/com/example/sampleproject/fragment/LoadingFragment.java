@@ -1,5 +1,6 @@
 package com.example.sampleproject.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,8 @@ import com.example.sampleproject.api.ClientCustomAPI;
 import com.example.sampleproject.api.InterfaceAPI;
 import com.example.sampleproject.model.TokenModel;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +39,6 @@ public class LoadingFragment extends Fragment {
     private String password;
     private String confirmPassword;
 
-    private FragmentManager fmgr;
     private FragmentTransaction ft;
 
     private boolean registered;
@@ -52,6 +54,7 @@ public class LoadingFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -123,7 +126,7 @@ public class LoadingFragment extends Fragment {
 
     private void initiateView(View view){
 
-        fmgr = getActivity().getSupportFragmentManager();
+        FragmentManager fmgr = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         ft = fmgr.beginTransaction();
 
         registered = false;
@@ -136,6 +139,7 @@ public class LoadingFragment extends Fragment {
         apiInterface = ClientCustomAPI.getClient().create(InterfaceAPI.class);
 
         Bundle bundle = getArguments();
+        assert bundle != null;
         username = bundle.getString("username");
         email = bundle.getString("email");
         password = bundle.getString("password");
@@ -177,7 +181,7 @@ public class LoadingFragment extends Fragment {
     }
 
     private void toSignUpFragment(String error) {
-        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+        FragmentManager fmgr = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
 
         SignUpFragment loadingFragment = new SignUpFragment();
 

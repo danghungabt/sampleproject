@@ -1,20 +1,15 @@
 package com.example.sampleproject.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
 import com.example.sampleproject.R;
 import com.example.sampleproject.model.LightAssetModel;
@@ -26,12 +21,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private double weatherLatitude, weatherLongitude;
@@ -39,10 +32,9 @@ public class HomeFragment extends Fragment {
     private WeatherAssetModel weatherAssetModel;
     private LightAssetModel lightAssetModel;
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            List<Marker> markerList = new ArrayList<>();
             LatLng weatherMarker = new LatLng(weatherLatitude, weatherLongitude);
 //            markerList.add(googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("weather")));
             googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("Weather Asset"));
@@ -68,17 +60,14 @@ public class HomeFragment extends Fragment {
             googleMap.setMinZoomPreference(14);
             googleMap.setMaxZoomPreference(19);
 
-            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(@NonNull Marker marker) {
-                    if(marker.getTitle().equals("Weather Asset")){
-                        showPopupWeatherAsset(weatherAssetModel);
-                    }else {
-                        showPopupLightAsset(lightAssetModel);
-                    }
-
-                    return false;
+            googleMap.setOnMarkerClickListener(marker -> {
+                if(Objects.equals(marker.getTitle(), "Weather Asset")){
+                    showPopupWeatherAsset(weatherAssetModel);
+                }else {
+                    showPopupLightAsset(lightAssetModel);
                 }
+
+                return false;
             });
 
         }
@@ -106,33 +95,28 @@ public class HomeFragment extends Fragment {
 
     private void initiate() {
         WeatherAssetRepository repository = new WeatherAssetRepository(getContext());
-        repository.getAssetById("5zI6XqkQVSfdgOrZ1MyWEf").observe(getViewLifecycleOwner(), new Observer<WeatherAssetModel>() {
-            @Override
-            public void onChanged(WeatherAssetModel weatherAsset) {
-                if (weatherAsset.attributes.location.value != null) {
-                    weatherLongitude = weatherAsset.attributes.location.value.coordinates.get(0);
-                    weatherLatitude = weatherAsset.attributes.location.value.coordinates.get(1);
-                    weatherAssetModel = weatherAsset;
-                }
+        repository.getAssetById("5zI6XqkQVSfdgOrZ1MyWEf").observe(getViewLifecycleOwner(), weatherAsset -> {
+            if (weatherAsset.attributes.location.value != null) {
+                weatherLongitude = weatherAsset.attributes.location.value.coordinates.get(0);
+                weatherLatitude = weatherAsset.attributes.location.value.coordinates.get(1);
+                weatherAssetModel = weatherAsset;
             }
         });
 
-        repository.getLightAssetById("6iWtSbgqMQsVq8RPkJJ9vo").observe(getViewLifecycleOwner(), new Observer<LightAssetModel>() {
-            @Override
-            public void onChanged(LightAssetModel lightAsset) {
-                if (lightAsset.attributes.location.value != null) {
-                    lightLongitude = lightAsset.attributes.location.value.coordinates.get(0);
-                    lightLatitude = lightAsset.attributes.location.value.coordinates.get(1);
-                    lightAssetModel = lightAsset;
-                }
+        repository.getLightAssetById("6iWtSbgqMQsVq8RPkJJ9vo").observe(getViewLifecycleOwner(), lightAsset -> {
+            if (lightAsset.attributes.location.value != null) {
+                lightLongitude = lightAsset.attributes.location.value.coordinates.get(0);
+                lightLatitude = lightAsset.attributes.location.value.coordinates.get(1);
+                lightAssetModel = lightAsset;
             }
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showPopupLightAsset(LightAssetModel lightAssetModel) {
         TextView tvName, tvType;
         // Inflate the popup layout
-        View popupView = getLayoutInflater().inflate(R.layout.popup_light_asset, null);
+        @SuppressLint("InflateParams") View popupView = getLayoutInflater().inflate(R.layout.popup_light_asset, null);
 
         tvName = popupView.findViewById(R.id.tvName);
         tvType = popupView.findViewById(R.id.tvType);
@@ -141,23 +125,18 @@ public class HomeFragment extends Fragment {
         tvType.setText(lightAssetModel.type);
 
         // Dismiss the popup when clicked outside
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-//                popupWindow.dismiss();
-                return true;
-            }
-        });
+        popupView.setOnTouchListener((v, event) -> true);
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(popupView);
         bottomSheetDialog.show();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showPopupWeatherAsset(WeatherAssetModel weatherAssetModel) {
         TextView tvHumidity, tvRainfall, tvTemperature, tvWindDirection, tvWindSpeed, tvName;
         // Inflate the popup layout
-        View popupView = getLayoutInflater().inflate(R.layout.popup_weather_asset, null);
+        @SuppressLint("InflateParams") View popupView = getLayoutInflater().inflate(R.layout.popup_weather_asset, null);
 
         tvHumidity = popupView.findViewById(R.id.tvHumidity);
         tvRainfall = popupView.findViewById(R.id.tvRainfall);
@@ -174,13 +153,7 @@ public class HomeFragment extends Fragment {
         tvName.setText(weatherAssetModel.name);
 
         // Dismiss the popup when clicked outside
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-//                popupWindow2.dismiss();
-                return true;
-            }
-        });
+        popupView.setOnTouchListener((v, event) -> true);
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(popupView);

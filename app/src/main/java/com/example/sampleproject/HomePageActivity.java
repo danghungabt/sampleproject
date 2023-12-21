@@ -1,23 +1,22 @@
 package com.example.sampleproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 public class HomePageActivity extends AppCompatActivity {
-
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
-        sharedPreferences = LocalStorage.getInstance(this);
+        SharedPreferences sharedPreferences = LocalStorage.getInstance(this);
         String accessToken = sharedPreferences.getString("access_token", null);
         long expiresIn = sharedPreferences.getLong("expires_in", 0);
 
@@ -28,24 +27,18 @@ public class HomePageActivity extends AppCompatActivity {
         }
 
         // Ánh xạ các nút và gắn lắng nghe sự kiện
-        findViewById(R.id.btnSignIn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển đến màn hình Sign In
-                Intent intent = new Intent(HomePageActivity.this, AuthActivity.class);
-                intent.putExtra("screen", "login");
-                startActivity(intent);
-            }
+        findViewById(R.id.btnSignIn).setOnClickListener(v -> {
+            // Chuyển đến màn hình Sign In
+            Intent intent1 = new Intent(HomePageActivity.this, AuthActivity.class);
+            intent1.putExtra("screen", "login");
+            startActivity(intent1);
         });
 
-        findViewById(R.id.buttonSignUp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển đến màn hình Sign Up
-                Intent intent = new Intent(HomePageActivity.this, AuthActivity.class);
-                intent.putExtra("screen", "register");
-                startActivity(intent);
-            }
+        findViewById(R.id.buttonSignUp).setOnClickListener(v -> {
+            // Chuyển đến màn hình Sign Up
+            Intent intent12 = new Intent(HomePageActivity.this, AuthActivity.class);
+            intent12.putExtra("screen", "register");
+            startActivity(intent12);
         });
     }
 }

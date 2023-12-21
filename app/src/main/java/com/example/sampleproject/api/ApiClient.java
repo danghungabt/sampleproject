@@ -1,27 +1,20 @@
 package com.example.sampleproject.api;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
-import java.io.IOException;
-import java.security.cert.CertificateException;
-
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static Retrofit retrofit = null;
     private static TokenManager tokenManager;
 
     public static void initializeTokenManager(Context context) {
@@ -30,14 +23,16 @@ public class ApiClient {
 
     private static OkHttpClient getUnsafeOkHttpClient() {
         try {
-            final TrustManager[] trustAllCerts = new TrustManager[] {
+            @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[] {
                     new X509TrustManager() {
+                        @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
+                        @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override
@@ -58,31 +53,21 @@ public class ApiClient {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(interceptor);
 
-            builder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
+            builder.addInterceptor(chain -> {
                 Request.Builder requestBuilder = chain.request().newBuilder();
 
                     if (tokenManager.getAccessToken() !=  null) {
                          requestBuilder.addHeader("Authorization", "Bearer " + tokenManager.getAccessToken());
 
-                } else {}
-                    Request newRequest = requestBuilder.build();
+                }
+                Request newRequest = requestBuilder.build();
             return chain.proceed(newRequest);
-            }
-
             });
 
 
             builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
-            OkHttpClient okHttpClient = builder.build();
-            return okHttpClient;
+            builder.hostnameVerifier((hostname, session) -> true);
+            return builder.build();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -94,12 +79,10 @@ public class ApiClient {
 
         OkHttpClient client = getUnsafeOkHttpClient();
 
-        retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl("https://uiot.ixxc.dev/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-
-        return retrofit;
     }
 }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.sampleproject.R;
 
+import java.util.Objects;
+
 public class SignUpFragment extends Fragment {
 
     private EditText editTextUsername, editTextEmail, editTextPassword, editTextConfirmPassword;
@@ -37,20 +39,12 @@ public class SignUpFragment extends Fragment {
         initiate(view);
 
         // Xử lý sự kiện nút "Back"
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish(); // Đóng màn hình Sign Up
-            }
+        buttonBack.setOnClickListener(v -> {
+            Objects.requireNonNull(getActivity()).finish(); // Đóng màn hình Sign Up
         });
 
         // Xử lý sự kiện nút "Sign Up"
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toLoadingFragment();
-            }
-        });
+        buttonSignUp.setOnClickListener(v -> toLoadingFragment());
 
         return view;
     }
@@ -85,7 +79,7 @@ public class SignUpFragment extends Fragment {
         bundle.putString("password", password);
         bundle.putString("confirmPassword", confirmPassword);
 
-        FragmentManager fmgr = getActivity().getSupportFragmentManager();
+        FragmentManager fmgr = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
 
         LoadingFragment loadingFragment = new LoadingFragment();
 

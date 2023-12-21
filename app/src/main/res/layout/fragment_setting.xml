@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleThem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Theme"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/textSizeMediumPlus"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/themeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dark Mode"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/titleThem"/>
+
+    <TextView
+        android:id="@+id/titleLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Language"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/textSizeMediumPlus"
+        android:textStyle="bold"
+        android:layout_below="@id/themeSwitch"
+        android:layout_alignParentStart="true"/>
+
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/titleLanguage"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_below="@id/languageSpinner"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

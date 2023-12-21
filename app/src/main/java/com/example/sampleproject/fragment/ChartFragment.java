@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sampleproject.R;
@@ -188,7 +189,8 @@ public class ChartFragment extends Fragment {
 
 
         paint = new Paint();
-        paint.setColor(Color.GREEN);
+        int textColor = ContextCompat.getColor(getContext(), R.color.textColor);
+        paint.setColor(textColor);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
         paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));

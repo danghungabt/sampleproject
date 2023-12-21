@@ -65,8 +65,9 @@
     <string name="NO">ppb</string>
     <string name="O3">ppb</string>
     <string name="SO2">%</string>
-    <string name="uVIndex">*</string>
-    <string name="AQI">*</string>
-    <string name="AQI_Predict">*</string>
+    <string name="uVIndex"></string>
+    <string name="AQI"></string>
+    <string name="AQI_Predict"></string>
     <string name="title_feature">Feature</string>
+    <string name="title_setting">Setting</string>
 </resources>

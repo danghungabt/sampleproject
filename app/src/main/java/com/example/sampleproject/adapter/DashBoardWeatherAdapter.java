@@ -44,14 +44,11 @@ public class DashBoardWeatherAdapter extends RecyclerView.Adapter<DashBoardWeath
         int attributeResourceId = context.getResources()
                 .getIdentifier(weatherAttribute.name, "string", context.getPackageName());
         if (attributeResourceId != 0) {
-            holder.weatherUnit.setText(context.getString(attributeResourceId));
+            holder.weatherUnit.setText("("+context.getString(attributeResourceId)+")");
         }
 
         int drawableResourceId = context.getResources()
                 .getIdentifier(weatherAttribute.name.toLowerCase(), "drawable", context.getPackageName());
-        if (drawableResourceId != 0) {
-            holder.weatherImage.setImageResource(drawableResourceId);
-        }
 
     }
 
@@ -71,13 +68,11 @@ public class DashBoardWeatherAdapter extends RecyclerView.Adapter<DashBoardWeath
     public class DetailWeatherViewHolder extends RecyclerView.ViewHolder {
         private CardView parent;
         //private LinearLayout statusContainer;
-        private ImageView weatherImage;
         private TextView weatherName, weatherValue, weatherUnit, tvTime;
         public DetailWeatherViewHolder(@NonNull View itemView) {
             super(itemView);
             parent = itemView.findViewById(R.id.detail_weather_card);
             //statusContainer = itemView.findViewById(R.id.container_weather_status);
-            weatherImage = itemView.findViewById(R.id.img_detail_weather);
             weatherName = itemView.findViewById(R.id.txt_weather_name) ;
             weatherValue = itemView.findViewById(R.id.txt_weather_value);
             weatherUnit = itemView.findViewById(R.id.txt_weather_unit);

@@ -25,6 +25,12 @@
         android:name="com.example.sampleproject.fragment.FeatureFragment"
         android:label="@string/title_feature"
         tools:layout="@layout/fragment_feature" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.example.sampleproject.fragment.SettingFragment"
+        android:label="@string/title_setting"
+        tools:layout="@layout/fragment_setting" />
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_account"-->
 <!--        android:name="com.example.airsense.view.account.AccountFragment"-->

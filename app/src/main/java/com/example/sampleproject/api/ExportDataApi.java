@@ -103,12 +103,9 @@ public class ExportDataApi {
                     temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime() + (long) (3600 * 6 * 1000));
                     list.put(temp.getTime(), Float.valueOf(elements[3]));
                 }
-//                temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime());
-//                list.put(temp.getTime(), Float.valueOf(elements[3]));
             }catch (IllegalArgumentException e) {
                 Log.d("custom_error",e.toString());
                 Log.d("custom_error",line);
-                continue;
             }
         }
         return list;

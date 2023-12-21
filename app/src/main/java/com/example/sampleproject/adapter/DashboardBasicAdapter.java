@@ -46,29 +46,22 @@ public class DashboardBasicAdapter extends RecyclerView.Adapter<DashboardBasicAd
              Double aqiValue = (Double)assetAttribute.aqi.value ;
             if( aqiValue < 50 ) {
                 holder.qualityText.setText(R.string.good_weather_status);
-                holder.healthImage.setImageResource(R.drawable.weather_good);
-                holder.healthImageContainer.setBackgroundResource(R.drawable.custom_weather_good);
                 holder.qualityText.setBackgroundResource(R.drawable.custom_weather_good);
             } else  {
                 holder.qualityText.setText(R.string.bad_weather_status);
-                holder.healthImage.setImageResource(R.drawable.weather_bad);
-                holder.healthImageContainer.setBackgroundResource(R.drawable.custom_weather_bad);
                 holder.qualityText.setBackgroundResource(R.drawable.custom_weather_bad);
             }
         }
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                DashBoardDetailFragment dashBoardDetailFragment = new DashBoardDetailFragment();
-                Bundle bundle = new Bundle();
-                if (weatherAssets.get(position) != null) {
-                    String id = weatherAssets.get(position).id;
-                    bundle.putString("assetId", id);
-                    dashBoardDetailFragment.setArguments(bundle);
-                    Navigation.createNavigateOnClickListener(R.id.action_basic_to_detail,bundle).onClick(holder.itemView);
-                }
+        holder.parent.setOnClickListener(v -> {
+           // FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            DashBoardDetailFragment dashBoardDetailFragment = new DashBoardDetailFragment();
+            Bundle bundle = new Bundle();
+            if (weatherAssets.get(position) != null) {
+                String id = weatherAssets.get(position).id;
+                bundle.putString("assetId", id);
+                dashBoardDetailFragment.setArguments(bundle);
+                Navigation.createNavigateOnClickListener(R.id.action_basic_to_detail,bundle).onClick(holder.itemView);
             }
         });
     }
@@ -84,11 +77,11 @@ public class DashboardBasicAdapter extends RecyclerView.Adapter<DashboardBasicAd
         notifyDataSetChanged();
     }
 
-    public class BasicWeatherViewHolder extends RecyclerView.ViewHolder {
-        private TextView placeText, pollutantText, qualityText;
-        private ImageView healthImage;
-        private LinearLayout healthImageContainer;
-        private LinearLayout parent;
+    public static class BasicWeatherViewHolder extends RecyclerView.ViewHolder {
+        private final TextView placeText;
+        private final TextView pollutantText;
+        private final TextView qualityText;
+        private final LinearLayout parent;
 
         public BasicWeatherViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,8 +89,6 @@ public class DashboardBasicAdapter extends RecyclerView.Adapter<DashboardBasicAd
             placeText = itemView.findViewById(R.id.txt_place);
             pollutantText = itemView.findViewById(R.id.txt_pollutant_status);
             qualityText = itemView.findViewById(R.id.txt_quality);
-            healthImage = itemView.findViewById(R.id.img_health_status);
-            healthImageContainer = itemView.findViewById(R.id.container_health_status);
         }
     }
 

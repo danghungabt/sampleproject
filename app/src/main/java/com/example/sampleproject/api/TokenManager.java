@@ -7,8 +7,8 @@ import com.example.sampleproject.LocalStorage;
 
 public class TokenManager {
     private static TokenManager instance;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences.Editor editor;
     private String accessToken;
     private String refreshToken;
     private long expiresIn;

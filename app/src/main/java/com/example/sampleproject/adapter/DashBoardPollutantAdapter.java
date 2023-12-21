@@ -30,7 +30,7 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
     @Override
     public DetailPollutantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_pollutant,parent,false);
-        return new DashBoardPollutantAdapter.DetailPollutantViewHolder(view);
+        return new DetailPollutantViewHolder(view);
     }
 
     @Override
@@ -39,10 +39,14 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
         holder.name.setText(pollutant.name);
         holder.value.setText(pollutant.value.toString());
         holder.tvTime.setText(ConvertTimeUtils.convertTimestampToDate(pollutant.timestamp));
-        int attributeResourceId = context.getResources()
+        @SuppressLint("DiscouragedApi") int attributeResourceId = context.getResources()
                 .getIdentifier(pollutant.name, "string", context.getPackageName());
         if (attributeResourceId != 0) {
-            holder.unit.setText(context.getString(attributeResourceId));
+            if(context.getString(attributeResourceId).equals("")){
+                holder.unit.setText("");
+            }else {
+                holder.unit.setText("(" + context.getString(attributeResourceId) + ")");
+            }
         }
 
     }
@@ -60,13 +64,15 @@ public class DashBoardPollutantAdapter extends RecyclerView.Adapter<DashBoardPol
         notifyDataSetChanged();
     }
 
-    public class DetailPollutantViewHolder extends RecyclerView.ViewHolder {
-        private CardView parent;
-       // private LinearLayout statusContainer;
-        private TextView name, value, unit, tvTime;
+    public static class DetailPollutantViewHolder extends RecyclerView.ViewHolder {
+        // private LinearLayout statusContainer;
+        private final TextView name;
+        private final TextView value;
+        private final TextView unit;
+        private final TextView tvTime;
         public DetailPollutantViewHolder(@NonNull View itemView) {
             super(itemView);
-            parent = itemView.findViewById(R.id.detail_pollutant_card);
+            CardView parent = itemView.findViewById(R.id.detail_pollutant_card);
             //statusContainer = itemView.findViewById(R.id.container_pollutant_status);
             name = itemView.findViewById(R.id.txt_pollutant_name) ;
             value = itemView.findViewById(R.id.txt_pollutant_value);

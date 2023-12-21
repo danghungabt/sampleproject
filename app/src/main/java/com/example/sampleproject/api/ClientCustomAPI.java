@@ -1,10 +1,8 @@
 package com.example.sampleproject.api;
 
-import java.security.cert.CertificateException;
+import android.annotation.SuppressLint;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -13,20 +11,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClientCustomAPI {
-    private static Retrofit retrofit = null;
     private static <SSLSocketFactory> OkHttpClient getUnsafeOkHttpClient()
     {
         try
         {
             // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+            @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                @SuppressLint("TrustAllX509TrustManager")
                 @Override
-                public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
 
                 }
 
+                @SuppressLint("TrustAllX509TrustManager")
                 @Override
-                public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
 
                 }
 
@@ -44,15 +43,9 @@ public class ClientCustomAPI {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory((javax.net.ssl.SSLSocketFactory) sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession sslSession) {
-                    return true;
-                }
-            });
+            builder.hostnameVerifier((hostname, sslSession) -> true);
 
-            OkHttpClient okHttpClient = builder.build();
-            return okHttpClient;
+            return builder.build();
         }
         catch (Exception e)
         {
@@ -64,12 +57,10 @@ public class ClientCustomAPI {
     {
         OkHttpClient client = getUnsafeOkHttpClient();
 
-        retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl("https://uiot.ixxc.dev/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-
-        return retrofit;
     }
 }

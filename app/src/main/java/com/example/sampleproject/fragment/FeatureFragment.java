@@ -1,17 +1,18 @@
 package com.example.sampleproject.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,30 +25,24 @@ import com.example.sampleproject.repository.WeatherAssetRepository;
 import com.example.sampleproject.viewmodel.DashboardBasicViewModel;
 
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 public class FeatureFragment extends Fragment {
     private Spinner spinner;
     private RecyclerView weatherRecView, pollutantRecView;
-    private  View view;
-    private NestedScrollView svContent;
+    private LinearLayout linearLayoutContent;
     private ProgressBar progressBar;
 
-    private WeatherAssetRepository weatherAssetRepository;
-    private DashboardBasicViewModel dashboardViewModel;
     private CustomSpinnerAdapter customSpinnerAdapter;
 
     private DashBoardWeatherAdapter weatherRecViewAdapter;
     private DashBoardPollutantAdapter pollutantRecViewAdapter;
-    private String assetId;
     private List<WeatherAssetModel> weatherAssetModelList;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_feature, container, false);
+        View view = inflater.inflate(R.layout.fragment_feature, container, false);
         initiate(view);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -74,6 +69,7 @@ public class FeatureFragment extends Fragment {
         super.onDestroyView();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void updateRecyclerView(WeatherAssetModel weatherAssetModel) {
         weatherRecViewAdapter.setWeatherAttributes(getWeatherList(weatherAssetModel.attributes));
         pollutantRecViewAdapter.setPollutants(getPollutantList(weatherAssetModel.attributes));
@@ -81,36 +77,36 @@ public class FeatureFragment extends Fragment {
         pollutantRecViewAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void initiate(View view) {
 
         spinner = view.findViewById(R.id.spinner);
         weatherRecView = view.findViewById(R.id.dashboard_detail_weather_rec_view);
         pollutantRecView = view.findViewById(R.id.dashboard_detail_pollutant_rec_view);
-        svContent = view.findViewById(R.id.svContent);
         progressBar = view.findViewById(R.id.loadingProgressBar);
+        linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
 
-        weatherAssetRepository = new  WeatherAssetRepository(getContext());
-        dashboardViewModel = new DashboardBasicViewModel(weatherAssetRepository);
-        dashboardViewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<WeatherAssetModel>>() {
-            @Override
-            public void onChanged(List<WeatherAssetModel> weatherAssets) {
-                if(weatherAssets != null) {
+        WeatherAssetRepository weatherAssetRepository = new WeatherAssetRepository(getContext());
+        DashboardBasicViewModel dashboardViewModel = new DashboardBasicViewModel(weatherAssetRepository);
+        dashboardViewModel.getData().observe(getViewLifecycleOwner(), weatherAssets -> {
+            if(weatherAssets != null) {
 
-                    customSpinnerAdapter = new CustomSpinnerAdapter(getContext(), R.layout.item_spinner_custom, weatherAssets);
-                    spinner.setAdapter(customSpinnerAdapter);
-                    weatherAssetModelList = weatherAssets;
-                    weatherRecViewAdapter = new DashBoardWeatherAdapter(getContext());
-                    pollutantRecViewAdapter = new DashBoardPollutantAdapter(getContext());
-                    weatherRecViewAdapter.setWeatherAttributes(getWeatherList(weatherAssetModelList.get(0).attributes));
-                    weatherRecViewAdapter.notifyDataSetChanged();
-                    pollutantRecViewAdapter.setPollutants(getPollutantList(weatherAssetModelList.get(0).attributes));
-                    pollutantRecViewAdapter.notifyDataSetChanged();
+                customSpinnerAdapter = new CustomSpinnerAdapter(Objects.requireNonNull(getContext()), R.layout.item_spinner_custom, weatherAssets);
+                spinner.setVisibility(View.VISIBLE);
+                spinner.setAdapter(customSpinnerAdapter);
+                weatherAssetModelList = weatherAssets;
+                weatherRecViewAdapter = new DashBoardWeatherAdapter(getContext());
+                pollutantRecViewAdapter = new DashBoardPollutantAdapter(getContext());
+                weatherRecViewAdapter.setWeatherAttributes(getWeatherList(weatherAssetModelList.get(0).attributes));
+                weatherRecViewAdapter.notifyDataSetChanged();
+                pollutantRecViewAdapter.setPollutants(getPollutantList(weatherAssetModelList.get(0).attributes));
+                pollutantRecViewAdapter.notifyDataSetChanged();
 
-                    setupWeatherRecyclerView();
+                setupWeatherRecyclerView();
 
-                    progressBar.setVisibility(View.GONE);
-                    svContent.setVisibility(View.VISIBLE);
-                }
+                progressBar.setVisibility(View.GONE);
+                linearLayoutContent.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -159,12 +155,5 @@ public class FeatureFragment extends Fragment {
         }
         return values;
     }
-
-    private String getCurrentTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        Date currentTime = new Date();
-        return sdf.format(currentTime);
-    }
-
 }
 

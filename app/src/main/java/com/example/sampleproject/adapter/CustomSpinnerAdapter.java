@@ -15,8 +15,8 @@ import com.example.sampleproject.model.WeatherAssetModel;
 import java.util.List;
 
 public class CustomSpinnerAdapter extends ArrayAdapter<WeatherAssetModel> {
-    private Context mContext;
-    private List<WeatherAssetModel> weatherAssetModels;
+    private final Context mContext;
+    private final List<WeatherAssetModel> weatherAssetModels;
 
     public CustomSpinnerAdapter(@NonNull Context context, int resource, @NonNull List<WeatherAssetModel> objects) {
         super(context, resource, objects);
@@ -27,16 +27,16 @@ public class CustomSpinnerAdapter extends ArrayAdapter<WeatherAssetModel> {
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
+        return getCustomView(position, parent);
     }
 
     @NonNull
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
+        return getCustomView(position, parent);
     }
 
-    public View getCustomView(int position, View convertView, ViewGroup parent) {
+    public View getCustomView(int position, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View row = inflater.inflate(R.layout.item_spinner_custom, parent, false);
 

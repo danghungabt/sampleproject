@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:padding="16dp"
-        android:textSize="24sp"
+        android:textSize="@dimen/textSizeMediumPlus"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="#000"
-        android:background="@color/bad"/>
+        android:textColor="@color/white"
+        android:background="@color/colorButtonAtHome"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,9 +27,9 @@
             android:layout_height="wrap_content"
             android:text="Type"
             android:padding="16dp"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSizeMedium"
             android:gravity="left"
-            android:textColor="#000"
+            android:textColor="@color/textColor"
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/tvType"
@@ -38,9 +38,9 @@
             android:text="Type"
             android:textStyle="italic"
             android:padding="16dp"
-            android:textSize="20sp"
+            android:textSize="@dimen/textSizeMedium"
             android:gravity="right"
-            android:textColor="#000"
+            android:textColor="@color/subTextColor"
             android:layout_weight="1"/>
     </LinearLayout>
 
