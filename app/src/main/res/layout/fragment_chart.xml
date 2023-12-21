@@ -4,97 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:id="@+id/background4"
     tools:context="fragment.ChartFragment">
-
-    <Spinner
-        android:id="@+id/spinner_attribute"
+    <RelativeLayout
+        android:id="@+id/rlContent"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:layout_marginBottom="8dp"
-        android:dropDownVerticalOffset="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/custom_spinner"/>
-
-<!--    <TextView-->
-<!--        android:id="@+id/txtview_realtime"-->
-<!--        android:layout_width="95dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Realtime"-->
-<!--        android:visibility="gone"-->
-<!--        android:textSize="20sp"-->
-<!--        android:layout_below="@id/spinner_attribute"-->
-<!--        android:layout_alignParentStart="true"/>-->
-
-    <Spinner
-        android:id="@+id/spinner_timeframe"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:background="@drawable/custom_spinner"
-        android:dropDownVerticalOffset="22dp"
-        android:layout_below="@id/spinner_attribute"
-        android:layout_alignParentStart="true"/>
-    <TextView
-        android:id="@+id/tvInputDateTime"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="center"
-        android:textSize="16dp"
-        android:textColor="@color/white"
-        android:background="@drawable/custom_text_input"
-        android:layout_below="@id/spinner_attribute"
-        android:layout_toRightOf="@id/spinner_timeframe"
-        android:layout_alignParentEnd="true"/>
-
-<!--    <TextView-->
-<!--        android:id="@+id/txtview_history"-->
-<!--        android:layout_width="95dp"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="history"-->
-<!--        android:visibility="gone"-->
-<!--        android:textSize="20sp" />-->
-
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="match_parent"
         android:padding="8dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/spinner_timeframe"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/btn_show"
-            android:layout_width="107dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="#3399FF"
-            android:text="Show"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <Spinner
+            android:id="@+id/spinner_asset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_attribute"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:dropDownVerticalOffset="50dp"
+            android:layout_below="@id/spinner_asset"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/custom_spinner"/>
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/txtview_realtime"-->
+        <!--        android:layout_width="95dp"-->
+        <!--        android:layout_height="36dp"-->
+        <!--        android:gravity="center"-->
+        <!--        android:text="Realtime"-->
+        <!--        android:visibility="gone"-->
+        <!--        android:textSize="20sp"-->
+        <!--        android:layout_below="@id/spinner_attribute"-->
+        <!--        android:layout_alignParentStart="true"/>-->
+
+        <Spinner
+            android:id="@+id/spinner_timeframe"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@drawable/custom_spinner"
+            android:dropDownVerticalOffset="22dp"
+            android:layout_below="@id/spinner_attribute"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:id="@+id/tvInputDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:background="@drawable/custom_text_input"
+            android:layout_below="@id/spinner_attribute"
+            android:layout_toRightOf="@id/spinner_timeframe"
+            android:layout_alignParentEnd="true"/>
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/txtview_history"-->
+        <!--        android:layout_width="95dp"-->
+        <!--        android:layout_height="36dp"-->
+        <!--        android:gravity="center"-->
+        <!--        android:text="history"-->
+        <!--        android:visibility="gone"-->
+        <!--        android:textSize="20sp" />-->
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="8dp"
             android:layout_alignParentStart="true"
             android:layout_below="@id/spinner_timeframe"
-            android:layout_alignParentEnd="true"/>
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/btn_show"
+                android:layout_width="107dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="#3399FF"
+                android:text="Show"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"/>
+        </LinearLayout>
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/idGraphView"
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/idGraphView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:padding="8dp"
+            android:visibility="invisible"
+            android:layout_below="@id/linearLayout"
+            android:layout_alignParentBottom="true"
+            />
+        <ProgressBar
+            android:id="@+id/prbLoadingChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="160dp"
+            android:background="@color/white"
+            android:visibility="invisible"
+            android:layout_below="@id/linearLayout"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:padding="8dp"
-        android:layout_below="@id/linearLayout"
-        android:layout_alignParentBottom="true"/>
-
-
-
+        android:layout_height="match_parent"
+        android:padding="160dp"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </RelativeLayout>

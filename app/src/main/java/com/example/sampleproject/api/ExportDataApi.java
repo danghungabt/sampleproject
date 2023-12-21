@@ -52,7 +52,7 @@ public class ExportDataApi {
 
     }
 
-    public Map<Date, Float> GetData() throws IOException {
+    public Map<Date, Float> GetData(int axis_x_format) throws IOException {
         InputStream in;
         int status = con.getResponseCode();
         if (status == 200)
@@ -92,8 +92,19 @@ public class ExportDataApi {
             String[] elements = line.split(",");
             Calendar temp = Calendar.getInstance();
             try {
-                temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime() + (long) (3600 * 6 * 1000));
-                list.put(temp.getTime(), Float.valueOf(elements[3]));
+                if(axis_x_format == 2){
+                    temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime() + (long) (3600 * 6 * 1000));
+                    int hour = temp.get(Calendar.HOUR_OF_DAY);
+                    if( (hour%4) ==0 ){
+                        list.put(temp.getTime(), Float.valueOf(elements[3]));
+                    }
+                }
+                else {
+                    temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime() + (long) (3600 * 6 * 1000));
+                    list.put(temp.getTime(), Float.valueOf(elements[3]));
+                }
+//                temp.setTimeInMillis(Timestamp.valueOf(elements[0]).getTime());
+//                list.put(temp.getTime(), Float.valueOf(elements[3]));
             }catch (IllegalArgumentException e) {
                 Log.d("custom_error",e.toString());
                 Log.d("custom_error",line);
