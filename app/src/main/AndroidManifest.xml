@@ -31,27 +31,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RealmInfoActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UserRealmRoleActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UserInfoActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".AuthActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">

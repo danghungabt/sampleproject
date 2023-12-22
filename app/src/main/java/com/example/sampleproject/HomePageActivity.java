@@ -1,11 +1,15 @@
 package com.example.sampleproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sampleproject.utils.ContextUtils;
+
+import java.util.Locale;
 import java.util.Objects;
 
 public class HomePageActivity extends AppCompatActivity {

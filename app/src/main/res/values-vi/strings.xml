@@ -110,7 +110,7 @@
     <string name="frag_user_last_name">Tên</string>
     <string name="frag_user_user_name">Tên Tài khoản</string>
     <string name="frag_user_email">Email</string>
-    <string name="frag_user_language">nghôn ngữ</string>
+    <string name="frag_user_language">Ngôn ngữ</string>
     <string name="frag_user_log_out">Đăng xuất</string>
     <string name="popup_humidity">Độ ẩm (%)</string>
     <string name="popup_rainfall_mm">Lượng mưa (mm)</string>

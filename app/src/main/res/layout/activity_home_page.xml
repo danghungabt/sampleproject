@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     app:backgroundTint="@color/colorButtonAtHome"
                     android:text="@string/home_page_sign_in"
-                    android:textAllCaps="true"
+                    android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -142,13 +142,14 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorButtonAtHome"
                     android:text="@string/home_page_sign_up"
-                    android:textAllCaps="true"
+                    android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/btnSignIn_gg"
                     app:layout_constraintTop_toBottomOf="@id/line"
                     app:layout_constraintStart_toStartOf="parent"/>
+
                 <Button
                     android:id="@+id/btnSignIn_gg"
                     android:layout_width="match_parent"
@@ -158,9 +159,10 @@
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:textAllCaps="false"
                     app:layout_constraintBottom_toTopOf="@id/textView5"
-                    app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonSignUp" />
 
                 <TextView
                     android:id="@+id/textView5"

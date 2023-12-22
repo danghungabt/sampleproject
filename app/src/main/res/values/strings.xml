@@ -82,9 +82,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="home_page_intro_text">Here Is An Application for UITers, provides useful information for you to have a great day at UIT!</string>
     <string name="home_page_welcome">Welcome to</string>
-    <string name="home_page_sign_in">SIGN IN</string>
-    <string name="home_page_sign_up">SIGN UP</string>
-    <string name="home_page_continue_with_google">CONTINUE WITH GOOGLE</string>
+    <string name="home_page_sign_in">Sign In</string>
+    <string name="home_page_sign_up">Sign Up</string>
+    <string name="home_page_continue_with_google">Continue With Google</string>
     <string name="home_page_reset_your_password">Reset your password?</string>
     <string name="chart_attribute">Attribute</string>
     <string name="chart_timeframe">Timeframe</string>

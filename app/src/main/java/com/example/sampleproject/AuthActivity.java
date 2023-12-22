@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.sampleproject.fragment.LoadingFragment;
 import com.example.sampleproject.fragment.SignInFragment;
 import com.example.sampleproject.fragment.SignUpFragment;
+import com.example.sampleproject.utils.ContextUtils;
+
+import java.util.Locale;
 
 public class AuthActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
