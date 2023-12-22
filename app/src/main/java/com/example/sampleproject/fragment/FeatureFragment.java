@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +42,9 @@ public class FeatureFragment extends Fragment {
     private DashBoardWeatherAdapter weatherRecViewAdapter;
     private DashBoardPollutantAdapter pollutantRecViewAdapter;
     private List<WeatherAssetModel> weatherAssetModelList;
+    private TextView tvValueAQI, tvState, tvValuePM25, tvTemperatureValue, tvWindFeedValue, tvHumidityValue;
+    private ImageView imvState;
+    private LinearLayout linearLayoutState;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feature, container, false);
@@ -53,6 +58,7 @@ public class FeatureFragment extends Fragment {
 
                 // Sau khi xử lý, cập nhật UI của RecyclerView dựa trên item được chọn
                 updateRecyclerView(weatherAssetModel);
+                loadDataGeneral(weatherAssetModel);
             }
 
             @Override
@@ -85,6 +91,14 @@ public class FeatureFragment extends Fragment {
         pollutantRecView = view.findViewById(R.id.dashboard_detail_pollutant_rec_view);
         progressBar = view.findViewById(R.id.loadingProgressBar);
         linearLayoutContent = view.findViewById(R.id.linearLayoutContent);
+        tvState = view.findViewById(R.id.tvState);
+        tvValueAQI = view.findViewById(R.id.tvValueAQI);
+        tvHumidityValue = view.findViewById(R.id.tvHumidityValue);
+        tvTemperatureValue = view.findViewById(R.id.tvTemperatureValue);
+        tvWindFeedValue = view.findViewById(R.id.tvWindFeedValue);
+        tvValuePM25 = view.findViewById(R.id.tvValuePM25);
+        imvState = view.findViewById(R.id.imvState);
+        linearLayoutState = view.findViewById(R.id.linearLayoutState);
 
         WeatherAssetRepository weatherAssetRepository = new WeatherAssetRepository(getContext());
         DashboardBasicViewModel dashboardViewModel = new DashboardBasicViewModel(weatherAssetRepository);
@@ -103,13 +117,84 @@ public class FeatureFragment extends Fragment {
                 pollutantRecViewAdapter.notifyDataSetChanged();
 
                 setupWeatherRecyclerView();
+                loadDataGeneral(weatherAssets.get(0));
 
                 progressBar.setVisibility(View.GONE);
                 linearLayoutContent.setVisibility(View.VISIBLE);
-
             }
         });
     }
+
+    private void loadDataGeneral(WeatherAssetModel weatherAssetModel) {
+
+        boolean isAQIGood = false, isPM25Good = false, isDefine = true;
+        int textColor;
+
+        if(weatherAssetModel.attributes.aqi != null && weatherAssetModel.attributes.aqi.value !=null){
+            tvValueAQI.setText(weatherAssetModel.attributes.aqi.value.toString());
+            if(Double.parseDouble(weatherAssetModel.attributes.aqi.value.toString()) < 50){
+                isAQIGood = true;
+            }
+        }else {
+            isDefine = false;
+            tvValueAQI.setText("?");
+        }
+
+        if(weatherAssetModel.attributes.pm25 != null && weatherAssetModel.attributes.pm25.value !=null){
+            tvValuePM25.setText(weatherAssetModel.attributes.pm25.value.toString());
+            if(Double.parseDouble(weatherAssetModel.attributes.pm25.value.toString()) < 50){
+                isPM25Good = true;
+            }
+        }else {
+            isDefine = false;
+            tvValuePM25.setText("?");
+        }
+
+        if(weatherAssetModel.attributes.temperature != null && weatherAssetModel.attributes.temperature.value !=null){
+            tvTemperatureValue.setText(weatherAssetModel.attributes.temperature.value.toString());
+        }else {
+            tvTemperatureValue.setText("?");
+        }
+
+        if(weatherAssetModel.attributes.windSpeed != null && weatherAssetModel.attributes.windSpeed.value !=null){
+            tvWindFeedValue.setText(weatherAssetModel.attributes.windSpeed.value.toString());
+        }else {
+            tvWindFeedValue.setText("?");
+        }
+
+        if(weatherAssetModel.attributes.humidity != null && weatherAssetModel.attributes.humidity.value !=null){
+            tvHumidityValue.setText(weatherAssetModel.attributes.humidity.value.toString());
+        }else {
+            tvHumidityValue.setText("?");
+        }
+
+        if(isDefine) {
+            if (isAQIGood && isPM25Good) {
+                tvState.setText("GOOD");
+                textColor = ContextCompat.getColor(getContext(), R.color.primaryVariantColor);
+                tvValueAQI.setTextColor(textColor);
+                tvState.setTextColor(textColor);
+                imvState.setImageResource(R.drawable.good_icon);
+                linearLayoutState.setBackgroundResource(R.color.goodColor);
+            } else {
+                tvState.setText("BAD");
+                textColor = ContextCompat.getColor(getContext(), R.color.badIconColor);
+                tvValueAQI.setTextColor(textColor);
+                tvState.setTextColor(textColor);
+                imvState.setImageResource(R.drawable.bad_icon);
+                linearLayoutState.setBackgroundResource(R.color.badColor);
+            }
+        }else {
+            tvState.setText("UNDIFINE");
+            textColor = ContextCompat.getColor(getContext(), R.color.badIconColor);
+            tvValueAQI.setTextColor(textColor);
+            tvState.setTextColor(textColor);
+            imvState.setImageResource(R.drawable.bad_icon);
+            linearLayoutState.setBackgroundResource(R.color.badColor);
+        }
+
+    }
+
 
     private void setupWeatherRecyclerView() {
         weatherRecView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));

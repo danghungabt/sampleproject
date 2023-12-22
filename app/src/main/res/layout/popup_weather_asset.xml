@@ -2,149 +2,171 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="#9E000000"
+    android:orientation="vertical">
 
     <!-- Add your popup content here -->
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
-        android:padding="16dp"
-        android:textSize="@dimen/textSizeMediumPlus"
+        android:background="@drawable/primary_color_background"
         android:gravity="center"
-        android:textStyle="bold"
+        android:padding="16dp"
+        android:text="Name"
         android:textColor="@color/white"
-        android:background="@color/colorButtonAtHome"/>
+        android:textSize="@dimen/textSizeMediumPlus"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Humidity (%)"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="left"
+            android:padding="16dp"
+            android:text="Humidity (%)"
             android:textColor="@color/textColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall" />
+
         <TextView
             android:id="@+id/tvHumidity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="74"
-            android:textStyle="italic"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="right"
+            android:padding="16dp"
+            android:text="74"
             android:textColor="@color/subTextColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall"
+            android:textStyle="italic" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Rainfall (mm)"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="left"
+            android:padding="16dp"
+            android:text="Rainfall (mm)"
             android:textColor="@color/textColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall" />
+
         <TextView
             android:id="@+id/tvRainfall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="74"
-            android:textStyle="italic"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="right"
+            android:padding="16dp"
+            android:text="74"
             android:textColor="@color/subTextColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall"
+            android:textStyle="italic" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Temperature (°C)"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="left"
+            android:padding="16dp"
+            android:text="Temperature (°C)"
             android:textColor="@color/textColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall" />
+
         <TextView
             android:id="@+id/tvTemperature"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="74"
-            android:textStyle="italic"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="right"
+            android:padding="16dp"
+            android:text="74"
             android:textColor="@color/subTextColor"
-            android:layout_weight="1"/>
-    </LinearLayout><LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="2">
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Wind Direction (°)"
-        android:padding="16dp"
-        android:textSize="@dimen/textSizeSmall"
-        android:gravity="left"
-        android:textColor="@color/textColor"
-        android:layout_weight="1"/>
-    <TextView
-        android:id="@+id/tvWindDirection"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="74"
-        android:textStyle="italic"
-        android:padding="16dp"
-        android:textSize="@dimen/textSizeSmall"
-        android:gravity="right"
-        android:textColor="@color/subTextColor"
-        android:layout_weight="1"/>
-</LinearLayout>
+            android:textSize="@dimen/textSizeSmall"
+            android:textStyle="italic" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="2">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Wind Speed (m/s)"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="left"
+            android:padding="16dp"
+            android:text="Wind Direction (°)"
             android:textColor="@color/textColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall" />
+
+        <TextView
+            android:id="@+id/tvWindDirection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:padding="16dp"
+            android:text="74"
+            android:textColor="@color/subTextColor"
+            android:textSize="@dimen/textSizeSmall"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:padding="16dp"
+            android:text="Wind Speed (m/s)"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/textSizeSmall" />
+
         <TextView
             android:id="@+id/tvWindSpeed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="74"
-            android:textStyle="italic"
-            android:padding="16dp"
-            android:textSize="@dimen/textSizeSmall"
+            android:layout_weight="1"
             android:gravity="right"
+            android:padding="16dp"
+            android:text="74"
             android:textColor="@color/subTextColor"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/textSizeSmall"
+            android:textStyle="italic" />
     </LinearLayout>
 
 

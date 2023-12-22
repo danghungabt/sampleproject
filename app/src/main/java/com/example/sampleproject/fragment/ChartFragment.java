@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -79,6 +80,7 @@ public class ChartFragment extends Fragment {
     private ArrayList<String> attribute_ArrayList;
     private ArrayAdapter<String> attribute_adapter;
     private String assetId, attrName;
+    private RelativeLayout background;
 
 
     String getQueryAttribute() {
@@ -106,6 +108,7 @@ public class ChartFragment extends Fragment {
         assetSpinner = view.findViewById(R.id.spinner_asset);
         rlContent = view.findViewById(R.id.rlContent);
         loadingProgressBar = view.findViewById(R.id.loadingProgressBar);
+        background = view.findViewById(R.id.background4);
 
         loadData();
 
@@ -135,6 +138,12 @@ public class ChartFragment extends Fragment {
                 attribute_ArrayList.addAll(attributeNames);
                 attribute_adapter.notifyDataSetChanged();
                 attribute_spinner.setSelection(0);
+//                background.setBackgroundResource(R.color.white);
+                if(attrName.equals("humidity")){
+                    background.setBackgroundResource(R.drawable.bg_chart_humidity);
+                }else if(attrName.equals("AQI")){
+                    background.setBackgroundResource(R.drawable.bg_chart_aqi);
+                }
             }
 
             @Override
@@ -189,7 +198,7 @@ public class ChartFragment extends Fragment {
 
 
         paint = new Paint();
-        int textColor = ContextCompat.getColor(getContext(), R.color.textColor);
+        int textColor = ContextCompat.getColor(getContext(), R.color.primaryColor);
         paint.setColor(textColor);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
@@ -199,6 +208,25 @@ public class ChartFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 attrName = parent.getItemAtPosition(position).toString();
+                switch (attrName){
+                    case "rainfall":
+                        background.setBackgroundResource(R.drawable.bg_chart_rainfall);
+                        break;
+                    case "humidity":
+                        background.setBackgroundResource(R.drawable.bg_chart_humidity);
+                        break;
+                    case "temperature":
+                        background.setBackgroundResource(R.drawable.bg_chart_temperature);
+                        break;
+                    case "windDirection":
+                    case "windSpeed":
+                        background.setBackgroundResource(R.drawable.bg_chart_wind);
+                        break;
+                    default:
+                        background.setBackgroundResource(R.drawable.bg_chart_aqi);
+                        break;
+                }
+
             }
 
             @Override
@@ -207,7 +235,7 @@ public class ChartFragment extends Fragment {
             }
         });
 
-        show_btn.setBackgroundResource(R.drawable.custom_button_rounded);
+//        show_btn.setBackgroundResource(R.drawable.custom_button_rounded);
         attribute_spinner.setBackgroundResource(R.drawable.custom_spinner);
         timeframe_spinner.setBackgroundResource(R.drawable.custom_spinner);
 
@@ -276,27 +304,29 @@ public class ChartFragment extends Fragment {
                                 Toast.makeText(getContext(), "Empty data", Toast.LENGTH_SHORT).show();
                                 series = new LineGraphSeries<>();
                                 series.setCustomPaint(paint);
+                                graph.setTitleTextSize(40);
+                                graph.setTitleColor(textColor);
                                 series.setDrawDataPoints(true);
                                 series.setDataPointsRadius(10);
                                 graph.getViewport().setYAxisBoundsManual(true);
                                 switch (attrName) {
                                     case "temperature":
-                                        graph.setTitle("Temperature");
+                                        graph.setTitle("Temperature" + " (" + getResources().getString(R.string.temperature) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(35);
                                         break;
                                     case "humidity":
-                                        graph.setTitle("Humidity");
+                                        graph.setTitle("Humidity"+ " (" + getResources().getString(R.string.humidity) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
                                     case "rainfall":
-                                        graph.setTitle("Rainfall");
+                                        graph.setTitle("Rainfall"+ " (" + getResources().getString(R.string.rainfall) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(5);
                                         break;
                                     case "windSpeed":
-                                        graph.setTitle("Wind speed");
+                                        graph.setTitle("Wind speed" + " (" + getResources().getString(R.string.windSpeed) + ")");
                                         graph.getViewport().setMinY(0);
                                         if (timeFrame.equals("day")) {
                                             graph.getViewport().setMaxY(6);
@@ -305,7 +335,7 @@ public class ChartFragment extends Fragment {
                                         }
                                         break;
                                     case "windDirection":
-                                        graph.setTitle("Wind Direction");
+                                        graph.setTitle("Wind Direction" + " (" + getResources().getString(R.string.windDirection) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
@@ -369,8 +399,6 @@ public class ChartFragment extends Fragment {
                                 }
                                 graph.getViewport().setXAxisBoundsManual(true);
                                 graph.addSeries(series);
-                                graph.setTitleTextSize(40);
-
                                 graph.getGridLabelRenderer().setLabelFormatter(custom_formatter);
 
                                 graph.setCursorMode(false);
@@ -402,28 +430,30 @@ public class ChartFragment extends Fragment {
 
                             ui_handler.post(() -> {
                                 graph.removeAllSeries();
+                                graph.setTitleTextSize(40);
+                                graph.setTitleColor(textColor);
                                 series.setCustomPaint(paint);
                                 series.setDrawDataPoints(true);
                                 series.setDataPointsRadius(10);
                                 graph.getViewport().setYAxisBoundsManual(true);
                                 switch (attrName) {
                                     case "temperature":
-                                        graph.setTitle("Temperature");
+                                        graph.setTitle("Temperature" + " (" + getResources().getString(R.string.temperature) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(35);
                                         break;
                                     case "humidity":
-                                        graph.setTitle("Humidity");
+                                        graph.setTitle("Humidity"+ " (" + getResources().getString(R.string.humidity) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
                                     case "rainfall":
-                                        graph.setTitle("Rainfall");
+                                        graph.setTitle("Rainfall"+ " (" + getResources().getString(R.string.rainfall) + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(5);
                                         break;
                                     case "windSpeed":
-                                        graph.setTitle("Wind speed");
+                                        graph.setTitle("Wind speed" + " (" + getResources().getString(R.string.windSpeed) + ")");
                                         graph.getViewport().setMinY(0);
                                         if (timeFrame.equals("day")) {
                                             graph.getViewport().setMaxY(6);
@@ -432,7 +462,7 @@ public class ChartFragment extends Fragment {
                                         }
                                         break;
                                     case "windDirection":
-                                        graph.setTitle("Wind Direction");
+                                        graph.setTitle("Wind Direction" + " (" + R.string.windDirection + ")");
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
@@ -497,7 +527,6 @@ public class ChartFragment extends Fragment {
 
                                 graph.getViewport().setXAxisBoundsManual(true);
                                 graph.addSeries(series);
-                                graph.setTitleTextSize(40);
 
                                 graph.getGridLabelRenderer().setLabelFormatter(custom_formatter);
 

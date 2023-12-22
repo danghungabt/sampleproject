@@ -40,6 +40,7 @@ public class UserInfoActivity extends AppCompatActivity {
         txtLastName = findViewById(R.id.txtLastName);
         txtEmail = findViewById(R.id.txtEmail);
         txtRealm = findViewById(R.id.txtRealm);
+        txtUserName = findViewById(R.id.txtUsername);
 
 
         Call<UserModel> call = apiInterface.getUser(realm, userId);
@@ -56,6 +57,7 @@ public class UserInfoActivity extends AppCompatActivity {
                     txtLastName.setText(userModel.lastName);
                     txtRealm.setText(userModel.realm);
                     txtEmail.setText(userModel.email);
+                    txtUserName.setText(userModel.username);
                 } else {
                 }
             }

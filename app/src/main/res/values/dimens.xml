@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="textSizeMiniSmall">12sp</dimen>
     <dimen name="textSizeSmall">16sp</dimen>
     <dimen name="textSizeMedium">18sp</dimen>
     <dimen name="textSizeMediumPlus">20sp</dimen>
     <dimen name="textSizeBig">24sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

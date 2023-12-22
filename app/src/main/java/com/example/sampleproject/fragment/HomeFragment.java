@@ -37,12 +37,12 @@ public class HomeFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             LatLng weatherMarker = new LatLng(weatherLatitude, weatherLongitude);
 //            markerList.add(googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("weather")));
-            googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("Weather Asset"));
+            googleMap.addMarker(new MarkerOptions().position(weatherMarker).title("Default Weather"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(weatherMarker));
 
             LatLng lightMarker = new LatLng(lightLatitude, lightLongitude);
 //            markerList.add(googleMap.addMarker(new MarkerOptions().position(lightMarker).title("light")));
-            googleMap.addMarker(new MarkerOptions().position(lightMarker).title("Light Asset"));
+            googleMap.addMarker(new MarkerOptions().position(lightMarker).title("Light"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lightMarker));
 
             // Set the bounds
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
             googleMap.setMaxZoomPreference(19);
 
             googleMap.setOnMarkerClickListener(marker -> {
-                if(Objects.equals(marker.getTitle(), "Weather Asset")){
+                if(Objects.equals(marker.getTitle(), "Default Weather")){
                     showPopupWeatherAsset(weatherAssetModel);
                 }else {
                     showPopupLightAsset(lightAssetModel);

@@ -1,3 +1,4 @@
+/*
 package com.example.sampleproject.fragment;
 
 import android.os.Bundle;
@@ -53,4 +54,4 @@ public class DashboardBasicFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
     }
-}
+}*/

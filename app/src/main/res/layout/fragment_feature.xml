@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp">
@@ -8,8 +9,8 @@
         android:id="@+id/linearLayoutContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <Spinner
             android:id="@+id/spinner"
@@ -28,10 +29,241 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp"
+                    android:layout_marginVertical="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutState"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/goodColor"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="8dp"
+                            android:weightSum="10">
+
+                            <ImageView
+                                android:id="@+id/imvState"
+                                android:layout_width="0dp"
+                                android:layout_height="60dp"
+                                android:layout_weight="2.5"
+                                android:src="@drawable/good_icon" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3">
+
+                                <TextView
+                                    android:id="@+id/tvValueAQI"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="21"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="@dimen/textSizeBig"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvValueAQI"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="AQI"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="@dimen/textSizeMiniSmall" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4.5">
+
+                                <TextView
+                                    android:id="@+id/tvState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="GOOD"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textStyle="bold" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvState"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/radius_background"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="4dp">
+
+                                    <TextView
+                                        android:id="@+id/tvTitlePM25"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_alignParentTop="true"
+                                        android:text="PM2.5"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="@dimen/textSizeMiniSmall" />
+
+                                    <TextView
+                                        android:id="@+id/tvValuePM25"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginRight="4dp"
+                                        android:layout_toRightOf="@id/tvTitlePM25"
+                                        android:text="5"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="@dimen/textSizeMiniSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tvUnitPM25"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_toRightOf="@id/tvValuePM25"
+                                        android:text="@string/PM25"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="@dimen/textSizeMiniSmall"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="9">
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                >
+                                <ImageView
+                                    android:id="@+id/imvTemperature"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/temperature_icon"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentStart="true"/>
+                                <TextView
+                                    android:id="@+id/tvTemperatureValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="21"
+                                    android:layout_marginLeft="4dp"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/imvTemperature"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="@string/temperature"
+                                    android:layout_marginLeft="1dp"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/tvTemperatureValue"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                >
+                                <ImageView
+                                    android:id="@+id/imvWindFeed"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="2dp"
+                                    android:src="@drawable/wind_icon"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentStart="true"/>
+                                <TextView
+                                    android:id="@+id/tvWindFeedValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="21"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/imvWindFeed"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="@string/windSpeed"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/tvWindFeedValue"/>
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                >
+                                <ImageView
+                                    android:id="@+id/imvHumidity"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="2dp"
+                                    android:src="@drawable/humidity_icon"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentStart="true"/>
+                                <TextView
+                                    android:id="@+id/tvHumidityValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="21"
+                                    android:layout_marginLeft="4dp"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/imvHumidity"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="@string/humidity"
+                                    android:layout_marginLeft="1dp"
+                                    android:textSize="@dimen/textSizeSmall"
+                                    android:textColor="@color/textColor"
+                                    android:layout_toEndOf="@id/tvHumidityValue"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weather now"
+                    android:text="Weather Information"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/textSizeMediumPlus"
                     android:textStyle="bold" />
@@ -47,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Pollutants"
+                    android:text="Pollution Information"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/textSizeMediumPlus"
                     android:textStyle="bold" />

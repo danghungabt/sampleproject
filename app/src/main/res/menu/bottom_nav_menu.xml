@@ -18,10 +18,14 @@
         android:icon="@drawable/nav_ic_dashboard"
         android:title="Feature" />
 
-    <item
+    <!--<item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Setting" />
+        android:title="Setting" />-->
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="User" />
 
 <!--    <item-->
 <!--        android:id="@+id/navigation_account"-->

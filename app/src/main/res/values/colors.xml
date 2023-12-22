@@ -10,8 +10,8 @@
     <color name="grey">#ECECEC</color>
     <color name="colorButtonAtHome">#0E1822</color>
 
-    <color name="textColor">#0E1822</color>
-    <color name="subTextColor">#9210151B</color>
+    <color name="textColor">#33557E</color>
+    <color name="subTextColor">#92506B88</color>
 
     <!--    app theme colors-->
     <color name="green_primary">#49734c</color>
@@ -31,5 +31,11 @@
     <color name="white_text">#F5F7F8</color>
     <color name="faded_text">#A7B0B2</color>
     <color name="weather_status_text">#464646</color>
-    <color name="itemBackground">#f5f5f5</color>
+    <color name="itemBackground">#F1F1F1</color>
+    <color name="goodColor">#00FFD9</color>
+    <color name="primaryColor">#0073A1</color>
+    <color name="primaryVariantColor">#0186C3</color>
+    <color name="badColor">#FFBF00</color>
+    <color name="badIconColor">#D17F04</color>
+
 </resources>

@@ -1,3 +1,4 @@
+/*
 package com.example.sampleproject.adapter;
 
 import android.annotation.SuppressLint;
@@ -93,3 +94,4 @@ public class DashboardBasicAdapter extends RecyclerView.Adapter<DashboardBasicAd
     }
 
 }
+*/
