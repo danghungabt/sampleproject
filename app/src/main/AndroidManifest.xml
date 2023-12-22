@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCbH6T6-S25rTVrbVHWu7rVLpI5VpYcOTo" />
+            android:value="@string/key_map" />
 
         <activity
             android:name=".ContainerActivity"

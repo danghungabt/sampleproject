@@ -118,4 +118,6 @@
     <string name="popup_wind_direction">Hướng gió (°)</string>
     <string name="popup_wind_speed_m_s">Tốc đô gió (m/s)</string>
     <string name="iten_updated_at">Cập nhật lúc:</string>
+
+    <string name="key_map">AIzaSyCbH6T6-S25rTVrbVHWu7rVLpI5VpYcOTo</string>
 </resources>
