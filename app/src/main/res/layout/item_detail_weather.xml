@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="Updated at: "
+                        android:text="@string/iten_updated_at"
                         android:textColor="@color/subTextColor"
                         android:textSize="@dimen/textSizeSmall"
                         android:textStyle="italic" />

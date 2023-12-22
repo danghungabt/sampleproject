@@ -3,7 +3,6 @@ package com.example.sampleproject.fragment;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -198,7 +196,7 @@ public class ChartFragment extends Fragment {
 
 
         paint = new Paint();
-        int textColor = ContextCompat.getColor(getContext(), R.color.primaryColor);
+        int textColor = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.primaryColor);
         paint.setColor(textColor);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
@@ -311,22 +309,22 @@ public class ChartFragment extends Fragment {
                                 graph.getViewport().setYAxisBoundsManual(true);
                                 switch (attrName) {
                                     case "temperature":
-                                        graph.setTitle("Temperature" + " (" + getResources().getString(R.string.temperature) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_temperature_c));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(35);
                                         break;
                                     case "humidity":
-                                        graph.setTitle("Humidity"+ " (" + getResources().getString(R.string.humidity) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_humidity));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
                                     case "rainfall":
-                                        graph.setTitle("Rainfall"+ " (" + getResources().getString(R.string.rainfall) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_rainfall_mm));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(5);
                                         break;
                                     case "windSpeed":
-                                        graph.setTitle("Wind speed" + " (" + getResources().getString(R.string.windSpeed) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_wind_speed_m_s));
                                         graph.getViewport().setMinY(0);
                                         if (timeFrame.equals("day")) {
                                             graph.getViewport().setMaxY(6);
@@ -335,7 +333,7 @@ public class ChartFragment extends Fragment {
                                         }
                                         break;
                                     case "windDirection":
-                                        graph.setTitle("Wind Direction" + " (" + getResources().getString(R.string.windDirection) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_wind_direction));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
@@ -438,22 +436,22 @@ public class ChartFragment extends Fragment {
                                 graph.getViewport().setYAxisBoundsManual(true);
                                 switch (attrName) {
                                     case "temperature":
-                                        graph.setTitle("Temperature" + " (" + getResources().getString(R.string.temperature) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_temperature_c));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(35);
                                         break;
                                     case "humidity":
-                                        graph.setTitle("Humidity"+ " (" + getResources().getString(R.string.humidity) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_humidity));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;
                                     case "rainfall":
-                                        graph.setTitle("Rainfall"+ " (" + getResources().getString(R.string.rainfall) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_rainfall_mm));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(5);
                                         break;
                                     case "windSpeed":
-                                        graph.setTitle("Wind speed" + " (" + getResources().getString(R.string.windSpeed) + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_wind_speed_m_s));
                                         graph.getViewport().setMinY(0);
                                         if (timeFrame.equals("day")) {
                                             graph.getViewport().setMaxY(6);
@@ -462,7 +460,7 @@ public class ChartFragment extends Fragment {
                                         }
                                         break;
                                     case "windDirection":
-                                        graph.setTitle("Wind Direction" + " (" + R.string.windDirection + ")");
+                                        graph.setTitle(getResources().getString(R.string.popup_wind_direction));
                                         graph.getViewport().setMinY(0);
                                         graph.getViewport().setMaxY(100);
                                         break;

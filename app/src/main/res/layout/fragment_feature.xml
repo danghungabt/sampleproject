@@ -263,7 +263,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weather Information"
+                    android:text="@string/feature_weather_information"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/textSizeMediumPlus"
                     android:textStyle="bold" />
@@ -279,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Pollution Information"
+                    android:text="@string/feature_pollution_information"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/textSizeMediumPlus"
                     android:textStyle="bold" />

@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">Air Meteo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Xin chào mảnh trống</string>
+    <string name="don_t_have_an_account_signup">Bạn chưa có tài khoản? <a>Đăng ký</a></string>
+
+    <!-- Nav bar strings -->
+    <string name="title_home">Trang chủ</string>
+    <string name="title_dashboard">Bảng điều khiển</string>
+    <string name="title_account">Tài khoản</string>
+    <string name="title_chart">Đồ thị</string>
+
+    <!-- Login screen strings -->
+    <string name="title_login">Chào mừng trở lại</string>
+    <string name="title_login_description">Đăng nhập vào tài khoản của bạn</string>
+
+    <string name="prompt_user">Tên tài khoản</string>
+    <string name="prompt_email_format">user@mail.com</string>
+    <string name="prompt_password">Mật khẩu</string>
+    <string name="prompt_confirm_password">Xác nhận mật khẩu</string>
+    <string name="prompt_log_in">Đăng nhập</string>
+
+    <string name="option_register">Bạn chưa có tài khoản?</string>
+
+    <string name="error_invalid_username">Tên người dùng không hợp lệ</string>
+    <string name="error_invalid_password">Mật khẩu phải >5 ký tự</string>
+    <string name="error_login_failed">"Đăng nhập thất bại"</string>
+
+    <!-- Register screen strings -->
+    <string name="title_register_description">Tạo tài khoản mới của bạn</string>
+
+    <string name="prompt_register">Đăng ký</string>
+    <string name="prompt_forgot_password">Quên mật khẩu ?</string>
+
+    <string name="option_login">Đã có tài khoản?</string>
+    <string name="option_remember">Ghi nhớ</string>
+    <string name="option_continue_with">Hoặc tiếp tục với</string>
+
+    <!-- Landing screen strings -->
+    <string name="title_landing">Hãy để chúng tôi chăm sóc sức khỏe của bạn</string>
+    <string name="option_landing">Tạo tài khoản</string>
+
+    <!-- Default string for null response -->
+    <string name="default_place">UIT</string>
+    <string name="default_location">Thu Duc, Ho Chi Minh City</string>
+
+    <string name="good_weather_status">GOOD</string>
+    <string name="bad_weather_status">BAD</string>
+
+    <!-- String relate to unit -->
+    <string name="rainfall">mm</string>
+    <string name="sunAltitude">°</string>
+    <string name="sunAzimuth">°</string>
+    <string name="sunIrradiance">W/m²</string>
+    <string name="sunZenith">°</string>
+    <string name="temperature">°C</string>
+    <string name="humidity">%</string>
+    <string name="windDirection">°</string>
+    <string name="windSpeed">m/s</string>
+    <string name="PM25">µg/m³</string>
+    <string name="PM10">µg/m³</string>
+    <string name="CO2">ppm</string>
+    <string name="CO2_average">ppm</string>
+    <string name="NO2">ppb</string>
+    <string name="NO">ppb</string>
+    <string name="O3">ppb</string>
+    <string name="SO2">%</string>
+    <string name="uVIndex"></string>
+    <string name="AQI"></string>
+    <string name="AQI_Predict"></string>
+
+    <string name="title_feature">Tính năng</string>
+    <string name="title_setting">Cài đặt</string>
+    <string name="title_user">Tài khoản</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Tiếp</string>
+    <string name="previous">Trờ vế</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="home_page_intro_text">Đây Là Ứng Dụng Dành Cho UITers, cung cấp những thông tin hữu ích để bạn có một ngày tuyệt vời tại UIT!</string>
+    <string name="home_page_welcome">Chào mừng đến</string>
+    <string name="home_page_sign_in">Đăng nhập</string>
+    <string name="home_page_sign_up">Đăng ký</string>
+    <string name="home_page_continue_with_google">Đặng nhập với Google</string>
+    <string name="home_page_reset_your_password">Đặt lại mật khẩu?</string>
+    <string name="chart_attribute">Thuộc tính</string>
+    <string name="chart_timeframe">Khung thời gian</string>
+    <string name="chart_ending">Kết thúc</string>
+    <string name="chart_btn_show">Hiện</string>
+    <string name="feature_weather_information">Thông tin thời tiết</string>
+    <string name="feature_pollution_information">Chỉ số ô nhiễm</string>
+    <string name="loading_please_wait">Vui lòng chờ ...</string>
+    <string name="frag_sign_in_sign_in">Đăng nhập</string>
+    <string name="frag_sign_in_user_name">Tên Tài Khoản</string>
+    <string name="frag_sign_in_enter_your_user_name">Nhập tên tài khoản...</string>
+    <string name="frag_sign_in_password">Mật Khẩu</string>
+    <string name="frag_sign_in_enter_your_password">Nhập mật khẩu...</string>
+    <string name="frag_sign_in_log_in">Đăng nhập</string>
+    <string name="frag_sign_in_back">Trở về</string>
+    <string name="frag_sign_up_sign_up">Đăng ký</string>
+    <string name="frag_sign_up_email">Email</string>
+    <string name="frag_sign_up_enter_your_email">Nhập email của bạn..</string>
+    <string name="frag_sign_up_confirm_your_password">Xác nhận mật khẩu</string>
+    <string name="frag_sign_up_btn_signup">Đăng ký</string>
+    <string name="frag_user_firstname">Họ</string>
+    <string name="frag_user_last_name">Tên</string>
+    <string name="frag_user_user_name">Tên Tài khoản</string>
+    <string name="frag_user_email">Email</string>
+    <string name="frag_user_language">nghôn ngữ</string>
+    <string name="frag_user_log_out">Đăng xuất</string>
+    <string name="popup_humidity">Độ ẩm (%)</string>
+    <string name="popup_rainfall_mm">Lượng mưa (mm)</string>
+    <string name="popup_temperature_c">Nhiệt độ (°C)</string>
+    <string name="popup_wind_direction">Hướng gió (°)</string>
+    <string name="popup_wind_speed_m_s">Tốc đô gió (m/s)</string>
+    <string name="iten_updated_at">Cập nhật lúc:</string>
+</resources>

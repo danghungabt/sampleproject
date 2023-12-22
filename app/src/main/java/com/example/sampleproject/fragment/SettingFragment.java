@@ -2,9 +2,6 @@ package com.example.sampleproject.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.sampleproject.AuthActivity;
-import com.example.sampleproject.ContainerActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.sampleproject.HomePageActivity;
 import com.example.sampleproject.R;
 import com.example.sampleproject.api.TokenManager;
@@ -24,7 +21,6 @@ import java.util.Objects;
 public class SettingFragment extends Fragment {
 
     private Button btnLogout;
-    private Spinner languageSpinner;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -57,12 +53,12 @@ public class SettingFragment extends Fragment {
 
     private void intitedView(View view) {
         btnLogout = view.findViewById(R.id.logoutButton);
-        languageSpinner = view.findViewById(R.id.languageSpinner);
+        Spinner languageSpinner = view.findViewById(R.id.languageSpinner);
 
-        ArrayList languageArrayList = new ArrayList<String>();
+        ArrayList<String> languageArrayList = new ArrayList<>();
         languageArrayList.add("English");
         languageArrayList.add("Vietnamese");
-        ArrayAdapter languageAdapter = new ArrayAdapter<String>(view.getContext(),
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<>(view.getContext(),
                 R.layout.spinner_item, // Sử dụng tệp layout tùy chỉnh ở đây
                 languageArrayList
         );

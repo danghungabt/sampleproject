@@ -12,11 +12,11 @@
     <item
         android:id="@+id/navigation_graph"
         android:icon="@drawable/nav_ic_chart"
-        android:title="Chart" />
+        android:title="@string/title_chart" />
     <item
         android:id="@+id/navigation_feature"
         android:icon="@drawable/nav_ic_dashboard"
-        android:title="Feature" />
+        android:title="@string/title_feature" />
 
     <!--<item
         android:id="@+id/navigation_setting"
@@ -25,7 +25,7 @@
     <item
         android:id="@+id/navigation_user"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="User" />
+        android:title="@string/title_user" />
 
 <!--    <item-->
 <!--        android:id="@+id/navigation_account"-->

@@ -6,13 +6,29 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.sampleproject.utils.ContextUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class ContainerActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences sharedPreferences = LocalStorage.getInstance(this);
+        String language = sharedPreferences.getString("language", "en");
+        Locale localeToSwitch = new Locale(language);
+        Context localeUpdatedContext = null;
+        if (newBase != null) {
+            localeUpdatedContext = ContextUtils.updateLocale(newBase, localeToSwitch);
+        }
+        super.attachBaseContext(localeUpdatedContext);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

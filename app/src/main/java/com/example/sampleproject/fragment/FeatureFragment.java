@@ -125,6 +125,7 @@ public class FeatureFragment extends Fragment {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void loadDataGeneral(WeatherAssetModel weatherAssetModel) {
 
         boolean isAQIGood = false, isPM25Good = false, isDefine = true;
@@ -171,14 +172,14 @@ public class FeatureFragment extends Fragment {
         if(isDefine) {
             if (isAQIGood && isPM25Good) {
                 tvState.setText("GOOD");
-                textColor = ContextCompat.getColor(getContext(), R.color.primaryVariantColor);
+                textColor = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.primaryVariantColor);
                 tvValueAQI.setTextColor(textColor);
                 tvState.setTextColor(textColor);
                 imvState.setImageResource(R.drawable.good_icon);
                 linearLayoutState.setBackgroundResource(R.color.goodColor);
             } else {
                 tvState.setText("BAD");
-                textColor = ContextCompat.getColor(getContext(), R.color.badIconColor);
+                textColor = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.badIconColor);
                 tvValueAQI.setTextColor(textColor);
                 tvState.setTextColor(textColor);
                 imvState.setImageResource(R.drawable.bad_icon);
@@ -186,7 +187,7 @@ public class FeatureFragment extends Fragment {
             }
         }else {
             tvState.setText("UNDIFINE");
-            textColor = ContextCompat.getColor(getContext(), R.color.badIconColor);
+            textColor = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.badIconColor);
             tvValueAQI.setTextColor(textColor);
             tvState.setTextColor(textColor);
             imvState.setImageResource(R.drawable.bad_icon);

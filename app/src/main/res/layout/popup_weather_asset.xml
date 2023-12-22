@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:padding="16dp"
-            android:text="Humidity (%)"
+            android:text="@string/popup_humidity"
             android:textColor="@color/textColor"
             android:textSize="@dimen/textSizeSmall" />
 
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:padding="16dp"
-            android:text="Rainfall (mm)"
+            android:text="@string/popup_rainfall_mm"
             android:textColor="@color/textColor"
             android:textSize="@dimen/textSizeSmall" />
 
@@ -91,7 +91,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:padding="16dp"
-            android:text="Temperature (°C)"
+            android:text="@string/popup_temperature_c"
             android:textColor="@color/textColor"
             android:textSize="@dimen/textSizeSmall" />
 
@@ -121,7 +121,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:padding="16dp"
-            android:text="Wind Direction (°)"
+            android:text="@string/popup_wind_direction"
             android:textColor="@color/textColor"
             android:textSize="@dimen/textSizeSmall" />
 
@@ -152,7 +152,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:padding="16dp"
-            android:text="Wind Speed (m/s)"
+            android:text="@string/popup_wind_speed_m_s"
             android:textColor="@color/textColor"
             android:textSize="@dimen/textSizeSmall" />
 
