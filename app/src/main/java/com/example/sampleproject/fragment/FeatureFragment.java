@@ -186,7 +186,7 @@ public class FeatureFragment extends Fragment {
                 linearLayoutState.setBackgroundResource(R.color.badColor);
             }
         }else {
-            tvState.setText("UNDIFINE");
+            tvState.setText("UNDEFINE");
             textColor = ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.badIconColor);
             tvValueAQI.setTextColor(textColor);
             tvState.setTextColor(textColor);

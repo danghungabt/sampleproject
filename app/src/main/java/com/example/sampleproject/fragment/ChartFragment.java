@@ -3,6 +3,7 @@ package com.example.sampleproject.fragment;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.sampleproject.LocalStorage;
 import com.example.sampleproject.R;
 import com.example.sampleproject.adapter.CustomSpinnerAdapter;
 import com.example.sampleproject.api.ExportDataApi;
@@ -157,16 +159,19 @@ public class ChartFragment extends Fragment {
                 String item = parent.getItemAtPosition(position).toString();
                 switch (item) {
                     case "Day":
+                    case "Ngày":
                         ChartFragment.last_time = Long.parseLong("1") * 86400 * 1000;
                         ChartFragment.axis_x_format = 0;
                         timeFrame = "day";
                         break;
                     case "Week":
+                    case "Tuần":
                         ChartFragment.last_time = Long.parseLong("1") * 86400 * 7 * 1000;
                         ChartFragment.axis_x_format = 1;
                         timeFrame = "week";
                         break;
                     case "Month":
+                    case "Tháng":
                         ChartFragment.last_time = Long.parseLong("1") * 86400 * 30 * 1000;
                         ChartFragment.axis_x_format = 2;
                         timeFrame = "month";
@@ -181,9 +186,19 @@ public class ChartFragment extends Fragment {
 
 
         ArrayList<String> timeframes = new ArrayList<>();
-        timeframes.add("Day");
-        timeframes.add("Week");
-        timeframes.add("Month");
+
+        SharedPreferences sharedPreferences = LocalStorage.getInstance(getContext());
+        String language = sharedPreferences.getString("language", "en");
+        if(language.equals("en")){
+            timeframes.add("Day");
+            timeframes.add("Week");
+            timeframes.add("Month");
+        }else {
+            timeframes.add("Ngày");
+            timeframes.add("Tuần");
+            timeframes.add("Tháng");
+        }
+
 
         ArrayAdapter adapter = new ArrayAdapter(
                 view.getContext(),
